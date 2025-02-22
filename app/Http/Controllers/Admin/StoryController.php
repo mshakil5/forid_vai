@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 class StoryController extends Controller
 {
-    public function getProduct()
+    public function getStory()
     {
         
         $categories = Category::select('id', 'name')->orderby('id', 'DESC')->get();
@@ -19,19 +19,12 @@ class StoryController extends Controller
         return view('admin.story.index', compact('data','categories'));
     }
 
-    public function productStore(Request $request)
+    public function storyStore(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255|unique:books,name',
             'short_description' => 'nullable|string',
             'description' => 'required|string',
-            'price' => 'required|numeric',
-            'warranty_duration' => 'nullable',
-            'brand_id' => 'nullable',
-            'product_model_id' => 'nullable',
-            'group_id' => 'nullable',
-            'unit_id' => 'nullable',
-            'product_code' => 'required',
             'is_featured' => 'nullable',
             'is_recent' => 'nullable',
             'is_new_arrival' => 'nullable',
@@ -39,7 +32,6 @@ class StoryController extends Controller
             'is_popular' => 'nullable',
             'is_trending' => 'nullable',
             'feature_image' => 'nullable|image|max:10240',
-            'images.*' => 'nullable|image|max:10240'
         ]);
 
          if ($validator->fails()) {
@@ -47,30 +39,20 @@ class StoryController extends Controller
             return response()->json(['status' => 400, 'message' => $errorMessage]);
         }
 
-        $categories = json_decode($request->input('categories'), true);
-
-        if ($categories) {
-            $firstCategory = $categories[0];
-            if (empty($firstCategory['category_id'])) {
-                $errorMessage = "<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>All category fields are required.</b></div>";
-                return response()->json(['status' => 400, 'message' => $errorMessage]);
-            }
-        }
 
         $pslug = Str::slug($request->input('name'));
 
-        $chkSlug = Book::where('slug', $pslug)->exists();
+        $chkSlug = Story::where('slug', $pslug)->exists();
         if ($chkSlug) {
             $pslug = $pslug . '-' . mt_rand(10000000, 99999999);
         }
 
-        $product = new Book;
+        $product = new Story;
         $product->name = $request->input('name');
         $product->slug = $pslug;
         $product->short_description = $request->input('short_description', null);
         $product->description = $request->input('description');
-        $product->price = $request->input('price');
-        $product->product_code = $request->input('product_code');
+        // $product->category_id = $request->category;
         $product->meta_title = $request->meta_title;
         $product->meta_description = $request->meta_description;
         $product->meta_keywords = $request->meta_keywords;
@@ -90,39 +72,9 @@ class StoryController extends Controller
             $product->feature_image = $randomName;
         }
 
-        if ($product->save()) {
-            if ($request->hasFile('images')) {
-                foreach ($request->file('images') as $image) {
-                    $imageName = mt_rand(10000000, 99999999).'.'.$image->getClientOriginalExtension();
-                    $destinationPath = public_path('images/products/');
-                    $imagePath = $destinationPath.$imageName;
-                    $image->move($destinationPath, $imageName);
-                    $productImage = new ProductImage;
-                    $productImage->book_id = $product->id;
-                    $productImage->image = $imageName;
-                    $productImage->created_by = auth()->user()->id;
-                    $productImage->save();
-                }
-            }
-
-        }
-
-        if (!empty($categories)) {
-            $firstCategory = $categories[0];
-            $product->category_id = $firstCategory['category_id'];
-
         $product->save();
 
-            foreach ($categories as $categoryData) {
-                $categoryProduct = new CategoryProduct();
-                $categoryProduct->book_id = $product->id;
-                $categoryProduct->category_id = $categoryData['category_id'];
-                $categoryProduct->save();
-            }
-        }        
-        
-
-        $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Prodcut Created Successfully.</b></div>";
+        $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Story Created Successfully.</b></div>";
 
         return response()->json(['status'=> 300,'message'=>$message]);
     }

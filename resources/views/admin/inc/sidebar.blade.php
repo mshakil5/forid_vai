@@ -83,6 +83,15 @@
         </ul>
       </li>
 
+      <li class="nav-item">
+        <a href="{{route('allstories')}}" class="nav-link {{ (request()->is('admin/story*')) ? 'active' : '' }}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>
+            Story
+          </p>
+        </a>
+      </li>
+
 
       
 

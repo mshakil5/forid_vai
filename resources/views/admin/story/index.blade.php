@@ -31,67 +31,39 @@
                             <input type="hidden" class="form-control" id="codeid" name="codeid">
 
                             <div class="form-row">
-                                <div class="form-group col-md-8">
-                                    <label for="name">Name<span style="color: red;">*</span></label>
+                                <div class="form-group col-md-12">
+                                    <label for="name">Story Title<span style="color: red;">*</span></label>
                                     <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="price">Price<span style="color: red;">*</span></label>
-                                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter price">
                                 </div>
                                 
                             </div>
 
                             <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="short_description">Short Description<span style="color: red;">*</span></label>
-                                    <textarea class="form-control" id="short_description" name="short_description" rows="3" placeholder="Enter short description"></textarea>
+                                <div class="form-group col-md-12">
+                                    <label for="short_description">Short Story<span style="color: red;">*</span></label>
+                                    <textarea class="form-control" id="short_description" name="short_description" rows="1" placeholder="Enter short description"></textarea>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="description">Long Description<span style="color: red;">*</span></label>
+                                <div class="form-group col-md-12">
+                                    <label for="description">Long Story<span style="color: red;">*</span></label>
                                     <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter long description"></textarea>
                                 </div>
                             </div>
 
-                            <div id="category-container">
-                                <div class="form-row category-row">
-                                    <div class="form-group col-md-4">
-                                        <label for="category">Category<span style="color: red;">*</span></label>
-                                        <select class="form-control category">
-                                            <option value="">Select Category</option>
-                                            @foreach($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group col-md-4 subcategory-section" style="display: none;">
-                                        <label for="subcategory">Sub Category</label>
-                                        <select class="form-control subcategory">
-                                            <option value="">Select Sub Category</option>
-                                            @foreach($subCategories as $subcategory)
-                                                <option class="subcategory-option category-{{ $subcategory->category_id }}" value="{{ $subcategory->id }}" style="display: none;">
-                                                    {{ $subcategory->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group col-md-1 d-flex align-items-end">
-                                        <button type="button" class="btn btn-success add-row">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                    </div>
+                            <div class="form-row category-row">
+                                <div class="form-group col-md-4">
+                                    <label for="category">Category<span style="color: red;">*</span></label>
+                                    <select class="form-control category">
+                                        <option value="">Select Category</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
+
                             </div>
 
 
                             <div class="form-row">
-                                
-
-                                
-                                
-
                                 <div class="form-group col-md-1 d-none">
                                     <label for="is_featured">Featured</label>
                                     <input type="checkbox" class="form-control" id="is_featured" name="is_featured" value="1">
@@ -116,7 +88,7 @@
                                     <label for="is_trending">Trending</label>
                                     <input type="checkbox" class="form-control" id="is_trending" name="is_trending" value="1">
                                 </div>
-                                <div class="col-sm-12">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Meta Title</label>
                                         <input type="text" class="form-control" id="meta_title" name="meta_title">
@@ -134,10 +106,6 @@
                                         <textarea class="form-control" id="meta_keywords" name="meta_keywords" rows="3" placeholder="Enter meta keywords"></textarea>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6 d-none" id="warranty-section">
-                                    <label>Default Warranty Duration<span style="color: red;">*</span></label>
-                                    <input type="text" class="form-control" id="warranty_duration" name="warranty_duration" placeholder="Enter warranty duration">
-                                </div>
                             </div>
 
                             <!-- Image part start -->
@@ -147,20 +115,7 @@
                                     <input type="file" class="form-control-file" id="feature-img" accept="image/*">
                                     <img id="preview-image" src="#" alt="" style="max-width: 300px; width: 100%; height: auto; margin-top: 20px;">
                                 </div>
-
-                                <div class="form-group col-md-6">
-                                    <label>Slider Images</label>
-                                    <div id="dynamicImages">
-                                        <div class="image-input-wrapper">
-                                            <img src="#" alt="Choose image" id="previewImage1" style="width: 150px; height: auto;">
-                                            <div class="image-input-icon">
-                                                <i class="fas fa-times-circle remove-image" title="Remove this image"></i>
-                                            </div>
-                                            <input type="file" class="form-control-file" id="imageUpload1" onchange="loadFile(event)" multiple accept="image/*">
-                                        </div>
-                                    </div>
-                                    <button type="button" class="btn btn-secondary btn-sm" onclick="addMoreImages()">+ Add More</button>
-                                </div>    
+   
                             </div>
                              <!-- Image part end -->
 
@@ -191,10 +146,9 @@
                             <thead>
                                 <tr>
                                     <th>Sl</th>
-                                    <th>Product</th>
+                                    <th>Title</th>
                                     <th>Image</th>
-                                    <th>Price</th>
-                                    <th>Category</th>
+                                    <th>Description</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -214,11 +168,8 @@
                                                 style="width: 50px; height: 50px; object-fit: cover;">
                                         @endif
                                     </td>
-                                    <td>{{ $data->price }}</td>
                                     <td>
-                                        @foreach ($data->categoryProducts as $categoryProduct)
-                                            <span class="badge bg-info">{{ $categoryProduct->category->name ?? '' }}</span>
-                                        @endforeach
+                                        {!! $data->description !!}
                                     </td>
                                     <td>
                                         <div class="custom-control custom-switch">
@@ -296,50 +247,7 @@
 @section('script')
 
 <script>
-    $(document).ready(function() {
-        $('#subcategory-section').hide();
-        //category change
-        $(document).on('change', '.category', function() {
-            var categoryId = $(this).val();
-            var $row = $(this).closest('.category-row');
 
-            if (categoryId) {
-                $row.find('.subcategory').val('').find('option').hide();
-                $row.find('.subcategory-option.category-' + categoryId).show();
-                $row.find('.subcategory-section').show();
-
-            } else {
-                $row.find('.subcategory').val('').find('option').hide();
-                $row.find('.subcategory-section').hide();
-            }
-        });
-
-        // Handle subcategory change
-        $(document).on('change', '.subcategory', function() {
-            var subcategoryId = $(this).val();
-            var $row = $(this).closest('.category-row');
-
-        });
-
-        // Add new row
-        $(document).on("click", ".add-row", function () {
-            let row = $(this).closest(".category-row").clone();
-
-            row.find(".category").val("");
-            row.find(".subcategory").val("");
-            row.find('input[name="category_product_ids[]"]').val("");
-            row.find('.subcategory-section').hide();
-
-            row.find("button").removeClass("btn-success add-row").addClass("btn-danger remove-row").html('<i class="fas fa-minus"></i>');
-
-            $("#category-container").append(row);
-        });
-
-        // Remove row
-        $(document).on("click", ".remove-row", function () {
-            $(this).closest(".category-row").remove();
-        });
-    });
     $(function () {
       $("#example1").DataTable({
         "responsive": true, "lengthChange": false, "autoWidth": false, "pageLength": 100,
@@ -347,33 +255,6 @@
       }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 
-    $('#product_code').on('keyup', function() {
-        let productCode = $(this).val().trim();
-        let productId = $("#codeid").val();
-
-        if (productCode.length >= 2) {
-            $.ajax({
-                url: "{{ route('check.product.code') }}",
-                method: "GET",
-                data: {
-                    product_code: productCode,
-                    product_id: productId
-                },
-                success: function(response) {
-                    if (response.exists) {
-                        $('#productCodeError').text('This model is already in use.');
-                        $('#addBtn').attr('disabled', true);
-                    } else {
-                        $('#productCodeError').text('');
-                        $('#addBtn').attr('disabled', false);
-                    }
-                }
-            });
-        } else {
-            $('#productCodeError').text('');
-            $('#addBtn').attr('disabled', true);
-        }
-    });
 
 </script>
 
@@ -395,8 +276,8 @@
 
       $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
 
-      var url = "{{URL::to('/admin/product')}}";
-      var upurl = "{{URL::to('/admin/product-update')}}";
+      var url = "{{URL::to('/admin/stories')}}";
+      var upurl = "{{URL::to('/admin/stories-update')}}";
 
       $("#addBtn").click(function(){
 
@@ -405,30 +286,11 @@
                 form_data.append("name", $("#name").val());
                 form_data.append("description", $("#description").val());
                 form_data.append("short_description", $("#short_description").val());
-                form_data.append("price", $("#price").val());
-                form_data.append("brand_id", $("#brand").val());
-                form_data.append("product_model_id", $("#model").val());
-                form_data.append("group_id", $("#group").val());
-                form_data.append("unit_id", $("#unit").val());
-                form_data.append("product_code", $("#product_code").val());
-                form_data.append("qty", $("#qty").val());
+                form_data.append("category", $("#category").val());
                 form_data.append("meta_title", $("#meta_title").val());
                 form_data.append("meta_description", $("#meta_description").val());
                 form_data.append("meta_keywords", $("#meta_keywords").val());
 
-                let categories = [];
-
-                $('.category-row').each(function() {
-                    let categoryId = $(this).find('.category').val();
-                    let subcategoryId = $(this).find('.subcategory').val();
-
-                    categories.push({
-                        category_id: categoryId || null,
-                        sub_category_id: subcategoryId || null
-                    });
-                });
-
-                form_data.append("categories", JSON.stringify(categories));
 
                 var is_featured = $("#is_featured").is(":checked") ? 1 : 0;
                 form_data.append("is_featured", is_featured);
@@ -448,7 +310,6 @@
                 var is_trending = $("#is_trending").is(":checked") ? 1 : 0;
                 form_data.append("is_trending", is_trending);
 
-                form_data.append("warranty_duration", $("#warranty_duration").val());
 
                 var featureImgInput = document.getElementById('feature-img');
                 if(featureImgInput.files && featureImgInput.files[0]) {
@@ -487,7 +348,7 @@
                         pagetop();
                     }else if(d.status == 300){
                         swal({
-                            text: "Product Created",
+                            text: "Story Created",
                             icon: "success",
                             button: {
                                 text: "OK",
@@ -511,9 +372,7 @@
                 form_data.append("name", $("#name").val());
                 form_data.append("description", $("#description").val());
                 form_data.append("short_description", $("#short_description").val());
-                form_data.append("price", $("#price").val());
                 form_data.append("category_id", $("#category").val());
-                form_data.append("sub_category_id", $("#subcategory").val());
                 form_data.append("brand_id", $("#brand").val());
                 form_data.append("product_model_id", $("#model").val());
                 form_data.append("group_id", $("#group").val());
@@ -683,8 +542,6 @@
           $("#short_description").val(data.short_description);
           $('#short_description').summernote('code', data.short_description);
 
-          $("#price").val(data.price);
-          $("#product_code").val(data.product_code);
           $("#is_featured").prop('checked', data.is_featured == 1 ? true : false);
           $("#is_recent").prop('checked', data.is_recent == 1 ? true : false);
           $("#is_new_arrival").prop('checked', data.is_new_arrival == 1 ? true : false);
@@ -694,15 +551,7 @@
 
 
 
-            $("#category-container").empty();
 
-            if (data.category_products && data.category_products.length > 0) {
-                data.category_products.forEach(function(categoryProduct, index) {
-                    appendCategoryRow(categoryProduct.category_id, categoryProduct.sub_category_id, categoryProduct.sub_sub_category_id, categoryProduct.id, index === 0);
-                });
-            }  else {
-                appendCategoryRow('', '', '', '', true);
-            }
 
           $("#brand").val(data.brand_id);
           $("#model").val(data.product_model_id);
@@ -741,49 +590,7 @@
             });
         }
 
-        function appendCategoryRow(categoryId, subCategoryId, categoryProductId, isFirstRow = false) {
-            var categoryRow = `
-                <div class="form-row category-row">
-                    <div class="form-group col-md-4">
-                        <label for="category">Category<span style="color: red;">*</span></label>
-                        <input type="hidden" name="category_product_ids[]" value="${categoryProductId}">
-                        <select class="form-control category" data-category-product-id="${categoryProductId}">
-                            <option value="">Select Category</option>
-                            @foreach($categories as $category)
-                                <option value="{{ $category->id }}" ${categoryId == {{ $category->id }} ? 'selected' : ''}>{{ $category->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
 
-                    <div class="form-group col-md-4 subcategory-section" style="display: ${categoryProductId ? 'block' : 'none'};">
-                        <label for="subcategory">Sub Category</label>
-                        <select class="form-control subcategory">
-                            <option value="">Select Sub Category</option>
-                            @foreach($subCategories as $subcategory)
-                                <option class="subcategory-option category-{{ $subcategory->category_id }}" value="{{ $subcategory->id }}" 
-                                    data-category-id="{{ $subcategory->category_id }}" 
-                                    ${categoryId == {{ $subcategory->category_id }} ? '' : 'style="display: none;"'} 
-                                    ${subCategoryId == {{ $subcategory->id }} ? 'selected' : ''}>
-                                    {{ $subcategory->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-
-
-
-                    <div class="form-group col-md-1 d-flex align-items-end">
-                        ${isFirstRow 
-                            ? `<button type="button" class="btn btn-success add-row"><i class="fas fa-plus"></i></button>` 
-                            : `<button type="button" class="btn btn-danger remove-row"><i class="fas fa-minus"></i></button>`}
-                    </div>
-
-                    <input type="hidden" name="category_product_ids[]" value="${categoryProductId}" />
-                </div>
-            `;
-
-            $("#category-container").append(categoryRow);
-        }
 
       }
       function clearform(){
@@ -798,45 +605,9 @@
           $('#imageUpload1').val('');
           $("#description").summernote('code', '');
           $("#short_description").summernote('code', '');
-          $("#category-container .category-row:not(:first)").remove();
-          var firstRow = $("#category-container .category-row:first");
-          firstRow.find(".category").val('');
-          firstRow.find(".subcategory").val('');
-          firstRow.find(".category").removeAttr("data-category-product-id");
-          firstRow.find(".subcategory-section").hide();
           $('#addBtn').attr('disabled', false);
       }
   });
-</script>
-
-<script>
-   let imagesCount = 1;
-
-    function loadFile(event) {
-        const output = document.getElementById('previewImage' + event.target.id.split('imageUpload')[1]);
-        output.src = URL.createObjectURL(event.target.files[0]);
-        output.onload = () => URL.revokeObjectURL(output.src);
-    }
-
-    function addMoreImages() {
-        imagesCount++;
-        const newInputDiv = document.createElement('div');
-        newInputDiv.classList.add('image-input-wrapper');
-
-        newInputDiv.innerHTML = `
-            <img src="#" alt="Choose image" id="previewImage${imagesCount}" style="width: 150px; height: 150px; object-fit: cover;">
-            <div class="image-input-icon">
-                <i class="fas fa-times-circle remove-image" title="Remove this image"></i>
-            </div>
-            <input type="file" class="form-control-file" id="imageUpload${imagesCount}" onchange="loadFile(event)" multiple accept="image/*">`;
-
-        document.getElementById('dynamicImages').appendChild(newInputDiv);
-
-        newInputDiv.querySelector('.remove-image').addEventListener('click', function() {
-            newInputDiv.remove();
-        });
-    }
-
 </script>
 
 <script>

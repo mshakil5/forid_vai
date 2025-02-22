@@ -134,7 +134,7 @@ class BookController extends Controller
         }        
         
 
-        $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Prodcut Created Successfully.</b></div>";
+        $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Book Added Successfully.</b></div>";
 
         return response()->json(['status'=> 300,'message'=>$message]);
     }
