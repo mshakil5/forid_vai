@@ -1,0 +1,107 @@
+
+
+body {
+  font-family: Arial, sans-serif;
+  padding-top: 70px; /* Adjust based on header height */
+}
+
+p {
+    font-size: 12px;
+    font-family: sans-serif;
+}
+
+li {
+    font-size: 12px;
+    font-family: sans-serif;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+
+/* Custom styling for the profile picture */
+.profile-img {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.profile-title {
+    font-size: 12vh;
+    font-weight: 400;
+}
+
+/* Custom styling for the header and footer sections */
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.header, .footer {
+  background-color: #fff;
+}
+
+/* Ensure content section is centered on the page */
+.content {
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Add custom spacing for footer items */
+.footer-item {
+  margin-bottom: 1rem;
+}
+
+
+.profile-buttons .btn {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border: none;
+}
+
+.profile-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Space between the buttons */
+}
+
+.profile-buttons .btn-warning {
+    background-color: #f1c40f; /* Custom yellow */
+}
+
+.profile-buttons .btn-danger {
+    background-color: #e74c3c; /* Custom red */
+}
+
+.profile-buttons .btn-info {
+    background-color: #1abc9c; /* Custom cyan */
+}
+
+
+/* Responsive profile section */
+@media (max-width: 768px) {
+  .profile-info {
+    text-align: center;
+  }
+
+  .profile-info h2 {
+    font-size: 1.5rem;
+  }
+
+  .profile-info p {
+    font-size: 1rem;
+  }
+}
+
