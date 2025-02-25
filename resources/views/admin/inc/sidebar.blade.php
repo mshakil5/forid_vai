@@ -93,6 +93,15 @@
       </li>
 
 
+      <li class="nav-item">
+        <a href="{{route('allpoetries')}}" class="nav-link {{ (request()->is('admin/poetries*')) ? 'active' : '' }}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>
+            Poetry
+          </p>
+        </a>
+      </li>
+
       
 
 

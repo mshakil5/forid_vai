@@ -4,22 +4,26 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Poetry;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class PoetryController extends Controller
 {
-    public function getStory()
+    public function getPoetry()
     {
         
         $categories = Category::select('id', 'name')->orderby('id', 'DESC')->get();
-        $data = Story::select('id', 'name', 'description', 'category_id', 'is_featured', 'is_recent', 'is_popular', 'is_trending', 'feature_image', 'slug',  'status')->orderby('id','DESC')->get();
+        $data = Poetry::select('id', 'name', 'description', 'category_id', 'is_featured', 'is_recent', 'is_popular', 'is_trending', 'feature_image', 'slug',  'status')->orderby('id','DESC')->get();
 
-        return view('admin.story.index', compact('data','categories'));
+        return view('admin.poetry.index', compact('data','categories'));
     }
 
-    public function storyStore(Request $request)
+    public function poetriesStore(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:books,name',
+            'name' => 'required|string|max:255|unique:poetries,name',
             'short_description' => 'nullable|string',
             'description' => 'required|string',
             'is_featured' => 'nullable',
@@ -39,12 +43,12 @@ class PoetryController extends Controller
 
         $pslug = Str::slug($request->input('name'));
 
-        $chkSlug = Story::where('slug', $pslug)->exists();
+        $chkSlug = Poetry::where('slug', $pslug)->exists();
         if ($chkSlug) {
             $pslug = $pslug . '-' . mt_rand(10000000, 99999999);
         }
 
-        $product = new Story;
+        $product = new Poetry;
         $product->name = $request->input('name');
         $product->slug = $pslug;
         $product->short_description = $request->input('short_description', null);
@@ -76,16 +80,16 @@ class PoetryController extends Controller
         return response()->json(['status'=> 300,'message'=>$message]);
     }
 
-    public function storyEdit($id)
+    public function poetriesEdit($id)
     {
-        $info = Story::where('id', $id)->first();
+        $info = Poetry::where('id', $id)->first();
         return response()->json($info);
     }
 
-    public function storyUpdate(Request $request)
+    public function poetriesUpdate(Request $request)
     {
        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:stories,name,' . $request->codeid,
+            'name' => 'required|string|max:255|unique:poetries,name,' . $request->codeid,
             'short_description' => 'nullable|string',
             'description' => 'required|string',
             'is_featured' => 'nullable',
@@ -107,7 +111,7 @@ class PoetryController extends Controller
         $pslug = Str::slug($request->input('name'));
 
         
-        $product = Story::find($request->codeid);
+        $product = Poetry::find($request->codeid);
 
         if ($request->hasFile('feature_image')) {
             $uploadedFile = $request->file('feature_image');
@@ -133,31 +137,19 @@ class PoetryController extends Controller
         $product->updated_by = auth()->user()->id;
         $product->save();
 
-
-
-
-
-
         $message = "<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Product Updated Successfully.</b></div>";
 
         return response()->json(['status' => 300, 'message' => $message, 'short_description' => $request->short_description]);
     }
 
-    public function productDelete($id)
+    public function poetriesDelete($id)
     {
-        $product = Story::find($id);
+        $product = Poetry::find($id);
 
         if (!$product) {
             return response()->json(['success' => false, 'message' => 'Product not found.']);
         }
 
-        $imagesToDelete = ProductImage::where('book_id', $id)->pluck('image');
-        foreach ($imagesToDelete as $imageFilename) {
-            $filePath = public_path('images/products/'.$imageFilename); 
-            if (file_exists($filePath)) {
-                unlink($filePath);
-            }
-        }
 
         if ($product->feature_image && file_exists(public_path('images/products/' . $product->feature_image))) {
             unlink(public_path('images/products/' . $product->feature_image));
@@ -166,5 +158,19 @@ class PoetryController extends Controller
         $product->delete();
 
         return response()->json(['success' => true, 'message' => 'Product and images deleted successfully.']);
+    }
+
+    public function toggleStatus(Request $request)
+    {
+        $request->validate([
+            'id' => 'required',
+            'is_On' => 'required|boolean'
+        ]);
+
+        $product = Poetry::find($request->id);
+        $product->status = $request->is_On;
+        $product->save();
+
+        return response()->json(['message' => 'Status updated successfully!']);
     }
 }

@@ -237,9 +237,7 @@
                                         <a id="deleteBtn" rid="{{ $data->id }}">
                                             <i class="fa fa-trash-o" style="color: red; font-size:16px;"></i>
                                         </a>
-                                        <a href="{{ route('product.reviews.show', $data->id) }}" class="reviewBtn">
-                                            <i class="fa fa-comments" style="color: #FF5722; font-size:16px; margin-right: 10px;" title="View Reviews"></i>
-                                        </a>
+                                        
                                     </td>
                                 </tr>
                                 @endforeach
@@ -347,33 +345,6 @@
       }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 
-    $('#product_code').on('keyup', function() {
-        let productCode = $(this).val().trim();
-        let productId = $("#codeid").val();
-
-        if (productCode.length >= 2) {
-            $.ajax({
-                url: "{{ route('check.product.code') }}",
-                method: "GET",
-                data: {
-                    product_code: productCode,
-                    product_id: productId
-                },
-                success: function(response) {
-                    if (response.exists) {
-                        $('#productCodeError').text('This model is already in use.');
-                        $('#addBtn').attr('disabled', true);
-                    } else {
-                        $('#productCodeError').text('');
-                        $('#addBtn').attr('disabled', false);
-                    }
-                }
-            });
-        } else {
-            $('#productCodeError').text('');
-            $('#addBtn').attr('disabled', true);
-        }
-    });
 
 </script>
 
@@ -395,8 +366,8 @@
 
       $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
 
-      var url = "{{URL::to('/admin/product')}}";
-      var upurl = "{{URL::to('/admin/product-update')}}";
+      var url = "{{URL::to('/admin/book')}}";
+      var upurl = "{{URL::to('/admin/book-update')}}";
 
       $("#addBtn").click(function(){
 
@@ -406,11 +377,6 @@
                 form_data.append("description", $("#description").val());
                 form_data.append("short_description", $("#short_description").val());
                 form_data.append("price", $("#price").val());
-                form_data.append("brand_id", $("#brand").val());
-                form_data.append("product_model_id", $("#model").val());
-                form_data.append("group_id", $("#group").val());
-                form_data.append("unit_id", $("#unit").val());
-                form_data.append("product_code", $("#product_code").val());
                 form_data.append("qty", $("#qty").val());
                 form_data.append("meta_title", $("#meta_title").val());
                 form_data.append("meta_description", $("#meta_description").val());
@@ -448,7 +414,6 @@
                 var is_trending = $("#is_trending").is(":checked") ? 1 : 0;
                 form_data.append("is_trending", is_trending);
 
-                form_data.append("warranty_duration", $("#warranty_duration").val());
 
                 var featureImgInput = document.getElementById('feature-img');
                 if(featureImgInput.files && featureImgInput.files[0]) {
@@ -847,7 +812,7 @@
             var itemId = $(this).data('id');
 
             $.ajax({
-                url: '/admin/toggle-status',
+                url: '{{ route('booktoggleStatus') }}',
                 method: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',

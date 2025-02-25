@@ -38,12 +38,6 @@ class BookController extends Controller
             'short_description' => 'nullable|string',
             'description' => 'required|string',
             'price' => 'required|numeric',
-            'warranty_duration' => 'nullable',
-            'brand_id' => 'nullable',
-            'product_model_id' => 'nullable',
-            'group_id' => 'nullable',
-            'unit_id' => 'nullable',
-            'product_code' => 'required',
             'is_featured' => 'nullable',
             'is_recent' => 'nullable',
             'is_new_arrival' => 'nullable',
@@ -152,10 +146,6 @@ class BookController extends Controller
             'short_description' => 'nullable|string',
             'description' => 'required|string',
             'price' => 'required|numeric',
-            'brand_id' => 'nullable',
-            'product_model_id' => 'nullable',
-            'group_id' => 'nullable',
-            'unit_id' => 'nullable',
             'product_code' => 'required|unique:products,product_code,' . $request->codeid,
             'is_featured' => 'nullable',
             'is_recent' => 'nullable',
@@ -339,78 +329,11 @@ class BookController extends Controller
         return view('admin.product.reviews', compact('product'));
     }
 
-    public function allProductReviews()
-    {
-        $reviews = ProductReview::select('id', 'book_id', 'user_id', 'title', 'rating', 'description', 'is_approved')
-            ->with([
-                'product:id,product_code,name',
-                'user:id,name'
-            ])
-            ->latest()
-            ->get();
     
-        return view('admin.product.all_reviews', compact('reviews'));
-    }
-
-    
-
-    public function changeReviewStatus(Request $request)
-    {
-        $review = ProductReview::findOrFail($request->review_id);
-        $review->is_approved = $request->is_approved;
-        $review->updated_by = auth()->id();
-        $review->save();
-
-        return response()->json(['success' => true]);
-    }
-
-    public function editReview($id)
-    {
-        $review = ProductReview::with('user')->findOrFail($id);
-        return response()->json($review);
-    }
-
-    public function updateReview(Request $request, $id)
-    {
-        $request->validate([
-            'review_title' => 'required|string|max:255',
-            'rating' => 'required|integer|min:1|max:5',
-            'review_description' => 'nullable|string',
-        ]);
-
-        $review = ProductReview::findOrFail($id);
-        $review->title = $request->review_title;
-        $review->rating = $request->rating;
-        $review->description = $request->review_description;
-        $review->save();
-
-        return response()->json(['message' => 'Review updated successfully!']);
-    }
-
-    public function markReviewAsNotified(Request $request)
-    {
-        $review = ProductReview::findOrFail($request->review_id);
-        $review->admin_notified = true;
-        $review->save();
-
-        return response()->json(['success' => true]);
-    }
-
-    public function markStockRequestAsNotified($id)
-    {
-        $stockRequest = StockRequest::find($id);
-
-        if ($stockRequest) {
-            $stockRequest->admin_notified = 1;
-            $stockRequest->save();
-            return response()->json(['success' => true]);
-        }
-        return response()->json(['success' => false, 'message' => 'Stock request not found']);
-    }
 
     public function showStockRequest($id)
     {   
-        $product = Product::with('stockRequests')->findOrFail($id);
+        $product = Book::with('stockRequests')->findOrFail($id);
         $product->stockRequests()->where('admin_notified', 0)->update(['admin_notified' => 1]);
         return view('admin.product.stock_request', compact('product'));
     }
@@ -423,7 +346,7 @@ class BookController extends Controller
             'is_featured' => 'required|boolean'
         ]);
 
-        $product = Product::find($request->id);
+        $product = Book::find($request->id);
         $product->is_featured = $request->is_featured;
         $product->save();
         return response()->json(['message' => 'Featured status updated successfully!']);
@@ -436,7 +359,7 @@ class BookController extends Controller
             'is_recent' => 'required|boolean'
         ]);
 
-        $product = Product::find($request->id);
+        $product = Book::find($request->id);
         $product->is_recent = $request->is_recent;
         $product->save();
         return response()->json(['message' => 'Recent status updated successfully!']);
@@ -449,7 +372,7 @@ class BookController extends Controller
             'is_popular' => 'required|boolean'
         ]);
 
-        $product = Product::find($request->id);
+        $product = Book::find($request->id);
         $product->is_popular = $request->is_popular;
         $product->save();
 
@@ -463,7 +386,7 @@ class BookController extends Controller
             'is_trending' => 'required|boolean'
         ]);
 
-        $product = Product::find($request->id);
+        $product = Book::find($request->id);
         $product->is_trending = $request->is_trending;
         $product->save();
 
@@ -477,35 +400,15 @@ class BookController extends Controller
             'is_On' => 'required|boolean'
         ]);
 
-        $product = Product::find($request->id);
+        $product = Book::find($request->id);
         $product->status = $request->is_On;
         $product->save();
 
         return response()->json(['message' => 'Status updated successfully!']);
     }
 
-    public function checkProductCode(Request $request)
-    {
-        $productCode = $request->product_code;
-        $productId = $request->product_id;
-    
-        if ($productId) {
-            $exists = Product::where('product_code', $productCode)
-                            ->where('id', '!=', $productId)
-                            ->exists();
-        } else {
-            $exists = Product::where('product_code', $productCode)->exists();
-        }
-    
-        return response()->json(['exists' => $exists]);
-    }
 
-    public function showProductDetails($id)
-    {
-        $currency = CompanyDetails::value('currency');
-        $product = Product::with(['category', 'subCategory', 'brand', 'productModel', 'group', 'unit', 'images'])->findOrFail($id);
-        return view('admin.product.details', compact('product', 'currency'));
-    }
+
 
 
 }

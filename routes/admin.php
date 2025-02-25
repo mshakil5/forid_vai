@@ -59,25 +59,20 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::post('/update-serial', [CategoryController::class, 'updateSerial'])->name('update.serial');
     
 
-    // Product crud
-    Route::get('/product', [BookController::class, 'getProduct'])->name('allproduct');
-    Route::get('/upload-product', [BookController::class, 'uploadProduct'])->name('upload.product');
-    Route::post('/product', [BookController::class, 'productStore']);
-    Route::get('/product/{id}/edit', [BookController::class, 'productEdit']);
-    Route::post('/product-update', [BookController::class, 'productUpdate']);
-    Route::get('/product/{id}', [BookController::class, 'productDelete']);
-    Route::get('/export-template', [BookController::class, 'exportTemplate'])->name('export.template');
-    Route::get('/products/{product}/reviews', [BookController::class, 'productReviews'])->name('product.reviews.show');
+    // book crud
+    Route::get('/book', [BookController::class, 'getProduct'])->name('allproduct');
+    Route::post('/book', [BookController::class, 'productStore']);
+    Route::get('/book/{id}/edit', [BookController::class, 'productEdit']);
+    Route::post('/book-update', [BookController::class, 'productUpdate']);
+    Route::get('/book/{id}', [BookController::class, 'productDelete']);
     
-    Route::get('/product-details/{id}', [BookController::class, 'showProductDetails'])->name('product.show.admin');
 
     
-    Route::post('/toggle-featured', [BookController::class, 'toggleFeatured'])->name('toggleFeatured');
-    Route::post('/toggle-recent', [BookController::class, 'toggleRecent'])->name('toggle-recent');
-    Route::post('/toggle-popular', [BookController::class, 'togglePopular'])->name('togglePopular');
-    Route::post('/toggle-trending', [BookController::class, 'toggleTrending'])->name('toggleTrending');
-    Route::post('/toggle-status', [BookController::class, 'toggleStatus'])->name('toggleStatus');
-    Route::get('/check-product-code', [BookController::class, 'checkProductCode'])->name('check.product.code');
+    // Route::post('/toggle-featured', [BookController::class, 'toggleFeatured'])->name('toggleFeatured');
+    // Route::post('/toggle-recent', [BookController::class, 'toggleRecent'])->name('toggle-recent');
+    // Route::post('/toggle-popular', [BookController::class, 'togglePopular'])->name('togglePopular');
+    // Route::post('/toggle-trending', [BookController::class, 'toggleTrending'])->name('toggleTrending');
+    Route::post('/book-toggle-status', [BookController::class, 'toggleStatus'])->name('booktoggleStatus');
 
     // stories
     Route::get('/stories', [StoryController::class, 'getStory'])->name('allstories');
@@ -94,6 +89,7 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/poetries/{id}/edit', [PoetryController::class, 'poetriesEdit']);
     Route::post('/poetries-update', [PoetryController::class, 'poetriesUpdate']);
     Route::get('/poetries/{id}', [PoetryController::class, 'poetriesDelete']);
+    Route::post('/poetries-toggle-status', [PoetryController::class, 'toggleStatus'])->name('poetriestoggleStatus');
 
 
     
