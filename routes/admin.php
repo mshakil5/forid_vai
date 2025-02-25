@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\PoetryController;
 use App\Http\Controllers\Admin\StoryController;
+use App\Http\Controllers\Admin\EssayController;
 
 /*------------------------------------------
 --------------------------------------------
@@ -90,6 +91,15 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::post('/poetries-update', [PoetryController::class, 'poetriesUpdate']);
     Route::get('/poetries/{id}', [PoetryController::class, 'poetriesDelete']);
     Route::post('/poetries-toggle-status', [PoetryController::class, 'toggleStatus'])->name('poetriestoggleStatus');
+
+
+    // essay
+    Route::get('/essay', [EssayController::class, 'getEssay'])->name('allessay');
+    Route::post('/essay', [EssayController::class, 'essayStore']);
+    Route::get('/essay/{id}/edit', [EssayController::class, 'essayEdit']);
+    Route::post('/essay-update', [EssayController::class, 'essayUpdate']);
+    Route::get('/essay/{id}', [EssayController::class, 'essayDelete']);
+    Route::post('/essay-toggle-status', [EssayController::class, 'toggleStatus'])->name('essaytoggleStatus');
 
 
     

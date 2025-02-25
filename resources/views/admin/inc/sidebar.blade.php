@@ -102,6 +102,15 @@
         </a>
       </li>
 
+      <li class="nav-item">
+        <a href="{{route('allessay')}}" class="nav-link {{ (request()->is('admin/essay*')) ? 'active' : '' }}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>
+            Essay
+          </p>
+        </a>
+      </li>
+
       
 
 
