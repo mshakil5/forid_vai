@@ -1,5 +1,7 @@
 @extends('admin.layouts.admin')
 
+
+
 @section('content')
 
 <!-- Main content -->
@@ -51,8 +53,8 @@
 
                             <div class="form-row category-row">
                                 <div class="form-group col-md-4">
-                                    <label for="category">Category<span style="color: red;">*</span></label>
-                                    <select class="form-control category">
+                                    <label for="category">category<span style="color: red;">*</span></label>
+                                    <select class="form-control category" id="category_id" name="category_id">
                                         <option value="">Select Category</option>
                                         @foreach($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -169,7 +171,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {!! $data->description !!}
+                                        {!! Str::before($data->description, '</p>') !!}
                                     </td>
                                     <td>
                                         <div class="custom-control custom-switch">
@@ -179,18 +181,18 @@
                                     </td>
 
                                     <td>
-                                        <a id="viewBtn" href="{{ route('product.show', $data->slug) }}">
+                                        {{-- <a id="viewBtn" href="{{ route('product.show', $data->slug) }}">
                                             <i class="fa fa-eye" style="color: #4CAF50; font-size:16px;"></i>
-                                        </a>
+                                        </a> --}}
                                         <a id="EditBtn" rid="{{ $data->id }}">
                                             <i class="fa fa-edit" style="color: #2196f3; font-size:16px;"></i>
                                         </a>
                                         <a id="deleteBtn" rid="{{ $data->id }}">
                                             <i class="fa fa-trash-o" style="color: red; font-size:16px;"></i>
                                         </a>
-                                        <a href="{{ route('product.reviews.show', $data->id) }}" class="reviewBtn">
+                                        {{-- <a href="{{ route('product.reviews.show', $data->id) }}" class="reviewBtn">
                                             <i class="fa fa-comments" style="color: #FF5722; font-size:16px; margin-right: 10px;" title="View Reviews"></i>
-                                        </a>
+                                        </a> --}}
                                     </td>
                                 </tr>
                                 @endforeach
@@ -286,7 +288,7 @@
                 form_data.append("name", $("#name").val());
                 form_data.append("description", $("#description").val());
                 form_data.append("short_description", $("#short_description").val());
-                form_data.append("category", $("#category").val());
+                form_data.append("category_id", $("#category_id").val());
                 form_data.append("meta_title", $("#meta_title").val());
                 form_data.append("meta_description", $("#meta_description").val());
                 form_data.append("meta_keywords", $("#meta_keywords").val());
@@ -310,27 +312,6 @@
                 var is_trending = $("#is_trending").is(":checked") ? 1 : 0;
                 form_data.append("is_trending", is_trending);
 
-
-                var featureImgInput = document.getElementById('feature-img');
-                if(featureImgInput.files && featureImgInput.files[0]) {
-                    form_data.append("feature_image", featureImgInput.files[0]);
-                }
-
-                prepareImageData(form_data);
-
-                function prepareImageData(form_data) {
-                    $(".image-input-wrapper").each(function(index) {
-                        var imageInputs = $(this).find('input[type=file]');
-                        imageInputs.each(function() {
-                            var files = this.files; 
-                            if (files && files.length > 0) {
-                                Array.from(files).forEach(file => {
-                                    form_data.append("images[]", file);
-                                });
-                            }
-                        });
-                    });
-                }
 
                     // for (var pair of form_data.entries()) {
                     //     console.log(pair[0]+ ', ' + pair[1]); 
@@ -372,13 +353,7 @@
                 form_data.append("name", $("#name").val());
                 form_data.append("description", $("#description").val());
                 form_data.append("short_description", $("#short_description").val());
-                form_data.append("category_id", $("#category").val());
-                form_data.append("brand_id", $("#brand").val());
-                form_data.append("product_model_id", $("#model").val());
-                form_data.append("group_id", $("#group").val());
-                form_data.append("unit_id", $("#unit").val());
-                form_data.append("product_code", $("#product_code").val());
-                form_data.append("qty", $("#qty").val());
+                form_data.append("category_id", $("#category_id").val());
                 form_data.append("meta_title", $("#meta_title").val());
                 form_data.append("meta_description", $("#meta_description").val());
                 form_data.append("meta_keywords", $("#meta_keywords").val());
@@ -405,48 +380,6 @@
                 if(featureImgInput.files && featureImgInput.files[0]) {
                     form_data.append("feature_image", featureImgInput.files[0]);
                 }
-
-
-                collectAndAppendImages(form_data);
-
-
-                function collectAndAppendImages(form_data) {
-                    $(".image-input-wrapper").each(function() {
-                        var hasPrePopulatedImage = $(this).find('img[src*="/images/products/"]').length > 0;
-
-                        var imageInputs = $(this).find('input[type=file]');
-                        imageInputs.each(function() {
-                            var files = this.files; 
-                            if (files && files.length > 0) {
-                                Array.from(files).forEach(file => {
-                                    form_data.append("images[]", file);
-                                });
-                            }
-                        });
-
-                        if (hasPrePopulatedImage) {
-                            var imgSrc = $(this).find('img[src*="/images/products/"]').attr('src');
-                            var imageName = imgSrc.substring(imgSrc.lastIndexOf('/') + 1);
-                            form_data.append("images[]", imageName);
-                        }
-                    });
-                }
-
-                let categories = [];
-
-                $('.category-row').each(function() {
-                    let categoryId = $(this).find('.category').val();
-                    let subcategoryId = $(this).find('.subcategory').val();
-                    let categoryProductId = $(this).find('input[name="category_product_ids[]"]').val();
-
-                    categories.push({
-                        categoryProductId: categoryProductId,
-                        category_id: categoryId,
-                        sub_category_id: subcategoryId,
-                    });
-                });
-
-                form_data.append("categories", JSON.stringify(categories));
 
                 form_data.append("codeid", $("#codeid").val());
 
@@ -532,7 +465,7 @@
       function populateForm(data){
 
           $("#name").val(data.name);
-          $("#qty").val(data.qty);
+          $("#category_id").val(data.category_id);
           $("#meta_title").val(data.meta_title);
           $("#meta_description").val(data.meta_description);
           $("#meta_keywords").val(data.meta_keywords);
@@ -550,15 +483,6 @@
           $("#is_trending").prop('checked', data.is_trending == 1 ? true : false);
 
 
-
-
-
-          $("#brand").val(data.brand_id);
-          $("#model").val(data.product_model_id);
-          $("#group").val(data.group_id);
-          $("#unit").val(data.unit_id);
-
-          $('#warranty-section').hide();
 
           $("#codeid").val(data.id);
           $("#addBtn").val('Update');

@@ -14,7 +14,7 @@ class StoryController extends Controller
     {
         
         $categories = Category::select('id', 'name')->orderby('id', 'DESC')->get();
-        $data = Story::select('id', 'name', 'price', 'category_id', 'is_featured', 'is_recent', 'is_popular', 'is_trending', 'feature_image', 'slug',  'status')->orderby('id','DESC')->get();
+        $data = Story::select('id', 'name', 'description', 'category_id', 'is_featured', 'is_recent', 'is_popular', 'is_trending', 'feature_image', 'slug',  'status')->orderby('id','DESC')->get();
 
         return view('admin.story.index', compact('data','categories'));
     }
@@ -52,7 +52,7 @@ class StoryController extends Controller
         $product->slug = $pslug;
         $product->short_description = $request->input('short_description', null);
         $product->description = $request->input('description');
-        // $product->category_id = $request->category;
+        $product->category_id = $request->category_id;
         $product->meta_title = $request->meta_title;
         $product->meta_description = $request->meta_description;
         $product->meta_keywords = $request->meta_keywords;
@@ -79,24 +79,18 @@ class StoryController extends Controller
         return response()->json(['status'=> 300,'message'=>$message]);
     }
 
-    public function productEdit($id)
+    public function storyEdit($id)
     {
-        $info = Book::where('id', $id)->with('category', 'images', 'subCategory', 'categoryProducts')->first();
+        $info = Story::where('id', $id)->first();
         return response()->json($info);
     }
 
-    public function productUpdate(Request $request)
+    public function storyUpdate(Request $request)
     {
        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:products,name,' . $request->codeid,
+            'name' => 'required|string|max:255|unique:stories,name,' . $request->codeid,
             'short_description' => 'nullable|string',
             'description' => 'required|string',
-            'price' => 'required|numeric',
-            'brand_id' => 'nullable',
-            'product_model_id' => 'nullable',
-            'group_id' => 'nullable',
-            'unit_id' => 'nullable',
-            'product_code' => 'required|unique:products,product_code,' . $request->codeid,
             'is_featured' => 'nullable',
             'is_recent' => 'nullable',
             'is_new_arrival' => 'nullable',
@@ -104,7 +98,6 @@ class StoryController extends Controller
             'is_popular' => 'nullable',
             'is_trending' => 'nullable',
             'feature_image' => 'nullable|image|max:10240',
-            // 'images.*' => 'nullable|image|max:10240'
         ]);
 
          if ($validator->fails()) {
@@ -112,20 +105,12 @@ class StoryController extends Controller
             return response()->json(['status' => 400, 'message' => $errorMessage]);
         }
 
-        $categories = json_decode($request->input('categories'), true);
-        
-        if ($categories) {
-            $firstCategory = $categories[0];
-            if (empty($firstCategory['category_id'])) {
-                $errorMessage = "<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>All category fields are required.</b></div>";
-                return response()->json(['status' => 400, 'message' => $errorMessage]);
-            }
-        }
+
 
         $pslug = Str::slug($request->input('name'));
 
         
-        $product = Book::find($request->codeid);
+        $product = Story::find($request->codeid);
 
         if ($request->hasFile('feature_image')) {
             $uploadedFile = $request->file('feature_image');
@@ -139,8 +124,6 @@ class StoryController extends Controller
         $product->slug = $pslug;
         $product->short_description = $request->input('short_description', null);
         $product->description = $request->input('description');
-        $product->price = $request->input('price');
-        $product->product_code = $request->input('product_code');
         $product->meta_title = $request->meta_title;
         $product->meta_description = $request->meta_description;
         $product->meta_keywords = $request->meta_keywords;
@@ -153,94 +136,10 @@ class StoryController extends Controller
         $product->updated_by = auth()->user()->id;
         $product->save();
 
-        $existingCategoryProducts = CategoryProduct::where('book_id', $product->id)->get();
-        foreach ($existingCategoryProducts as $existingCategoryProduct) {
-            $existsInNewData = false;
-            foreach ($categories as $categoryData) {
-                if ($existingCategoryProduct->id == $categoryData['categoryProductId']) {
-                    $existsInNewData = true;
-                    break;
-                }
-            }
-    
-            if (!$existsInNewData) {
-                $existingCategoryProduct->delete();
-            }
-        }
-
-        if (!empty($categories)) {
-            foreach ($categories as $categoryData) {
-                if ($categoryData['categoryProductId']) {
-                    $categoryProduct = CategoryProduct::where('id', $categoryData['categoryProductId'])->first();
-                    $categoryProduct->category_id = $categoryData['category_id'] ?? null;
-                    if ($categoryData['sub_category_id']) {
-                        $categoryProduct->sub_category_id = $categoryData['sub_category_id'] ?? null;
-                    }
-                    $categoryProduct->save();
-                } else {
-                    if (!empty($categoryData['category_id'])) {
-                        $categoryProduct = new CategoryProduct();
-                        $categoryProduct->book_id = $product->id;
-                        $categoryProduct->category_id = $categoryData['category_id'];
-                        if ($categoryData['sub_category_id']) {
-                            $categoryProduct->sub_category_id = $categoryData['sub_category_id'] ?? null;
-                        }
-                        $categoryProduct->save();
-                    }
-                }                
-            }
-        
-            $firstCategory = $categories[0];
-            $product->category_id = $firstCategory['category_id'] ?? null;
-            if ($firstCategory['sub_category_id']) {
-                $product->sub_category_id = $firstCategory['sub_category_id'] ?? null;
-            }
-            $product->save();
-        }        
 
 
 
-        $currentProductImages = ProductImage::where('book_id', $product->id)->get();
-        $existingImagesArray = [];
 
-        foreach ($currentProductImages as $existingImage) {
-            $existingImagesArray[] = $existingImage->image;
-        }
-
-        $imagesToDelete = [];
-
-        if ($request->hasFile('images')) {
-            $newImages = $request->file('images');
-
-            foreach ($newImages as $newImage) {
-                $uniqueImageName = mt_rand(10000000, 99999999). '.'. $newImage->getClientOriginalExtension();
-                $destinationPath = public_path('images/products/');
-                $newImagePath = $destinationPath. $uniqueImageName;
-                $newImage->move($destinationPath, $uniqueImageName);
-
-                $productImage = new ProductImage;
-                $productImage->book_id = $product->id;
-                $productImage->image = $uniqueImageName;
-                $productImage->created_by = auth()->user()->id;
-                $productImage->save();
-            }
-        }
-
-        foreach ($existingImagesArray as $existingImageName) {
-            if (!in_array($existingImageName, $request->input('images', []))) {
-                $imagesToDelete[] = $existingImageName;
-            }
-        }
-
-        if (!empty($imagesToDelete)) {
-            ProductImage::whereIn('image', $imagesToDelete)->delete();
-            foreach ($imagesToDelete as $fileName) {
-                $filePath = public_path('images/products/'. $fileName);
-                if (file_exists($filePath)) {
-                    unlink($filePath);
-                }
-            }
-        }
 
         $message = "<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Product Updated Successfully.</b></div>";
 
