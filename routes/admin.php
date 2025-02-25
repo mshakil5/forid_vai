@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\CompanyDetailController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BookController;
+use App\Http\Controllers\Admin\PoetryController;
 use App\Http\Controllers\Admin\StoryController;
 
 /*------------------------------------------
@@ -80,11 +81,19 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
 
     // stories
     Route::get('/stories', [StoryController::class, 'getStory'])->name('allstories');
-    Route::get('/upload-stories', [StoryController::class, 'uploadStory'])->name('upload.stories');
     Route::post('/stories', [StoryController::class, 'storyStore']);
     Route::get('/stories/{id}/edit', [StoryController::class, 'storyEdit']);
     Route::post('/stories-update', [StoryController::class, 'storyUpdate']);
     Route::get('/stories/{id}', [StoryController::class, 'storyDelete']);
+    Route::post('/stories-toggle-status', [StoryController::class, 'toggleStatus'])->name('storiestoggleStatus');
+
+    
+    // poetries
+    Route::get('/poetries', [PoetryController::class, 'getPoetry'])->name('allpoetries');
+    Route::post('/poetries', [PoetryController::class, 'poetriesStore']);
+    Route::get('/poetries/{id}/edit', [PoetryController::class, 'poetriesEdit']);
+    Route::post('/poetries-update', [PoetryController::class, 'poetriesUpdate']);
+    Route::get('/poetries/{id}', [PoetryController::class, 'poetriesDelete']);
 
 
     

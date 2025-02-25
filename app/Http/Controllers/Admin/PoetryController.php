@@ -3,12 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Story;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Validator;
-class StoryController extends Controller
+
+class PoetryController extends Controller
 {
     public function getStory()
     {
@@ -136,17 +133,30 @@ class StoryController extends Controller
         $product->updated_by = auth()->user()->id;
         $product->save();
 
+
+
+
+
+
         $message = "<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Product Updated Successfully.</b></div>";
 
         return response()->json(['status' => 300, 'message' => $message, 'short_description' => $request->short_description]);
     }
 
-    public function storyDelete($id)
+    public function productDelete($id)
     {
         $product = Story::find($id);
 
         if (!$product) {
             return response()->json(['success' => false, 'message' => 'Product not found.']);
+        }
+
+        $imagesToDelete = ProductImage::where('book_id', $id)->pluck('image');
+        foreach ($imagesToDelete as $imageFilename) {
+            $filePath = public_path('images/products/'.$imageFilename); 
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
         }
 
         if ($product->feature_image && file_exists(public_path('images/products/' . $product->feature_image))) {
@@ -156,19 +166,5 @@ class StoryController extends Controller
         $product->delete();
 
         return response()->json(['success' => true, 'message' => 'Product and images deleted successfully.']);
-    }
-
-    public function toggleStatus(Request $request)
-    {
-        $request->validate([
-            'id' => 'required',
-            'is_On' => 'required|boolean'
-        ]);
-
-        $product = Story::find($request->id);
-        $product->status = $request->is_On;
-        $product->save();
-
-        return response()->json(['message' => 'Status updated successfully!']);
     }
 }

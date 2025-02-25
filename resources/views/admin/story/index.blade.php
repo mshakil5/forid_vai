@@ -164,11 +164,14 @@
                                         $imagePath = public_path('images/products/' . $data->feature_image);
                                     @endphp
                                     <td>
-                                        @if(file_exists($imagePath))
-                                            <img src="{{ asset('images/products/' . $data->feature_image) }}" 
-                                                alt="Product Image" 
-                                                style="width: 50px; height: 50px; object-fit: cover;">
+                                        @if ($data->feature_image)
+                                            @if(file_exists($imagePath))
+                                                <img src="{{ asset('images/products/' . $data->feature_image) }}" 
+                                                    alt="Product Image" 
+                                                    style="width: 50px; height: 50px; object-fit: cover;">
+                                            @endif
                                         @endif
+                                        
                                     </td>
                                     <td>
                                         {!! Str::before($data->description, '</p>') !!}
@@ -206,11 +209,6 @@
 </section>
 
 <style>
-    #dynamicImages {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
 
     .image-input-wrapper {
         flex: 0 0 auto;
@@ -497,22 +495,7 @@
                 featureImagePreview.src = "#";
             }
 
-          if (data.images && data.images.length > 0) {
-            var imagesHTML = '';
-            data.images.forEach(function(image) {
-                var imagePath = '/images/products/' + image.image;
-                imagesHTML += '<div class="image-input-wrapper">';
-                imagesHTML += '<img src="' + imagePath + '" alt="Product Image" style="width: 150px; height: 150px; object-fit: cover;">';
-                imagesHTML += '<div class="image-input-icon"><i class="fas fa-times-circle remove-image" title="Remove this image"></i></div>';
-                imagesHTML += '</div>';
-            });
-            $('#dynamicImages').html(imagesHTML);
-
-             $('#dynamicImages').on('click', '.remove-image', function(e) {
-                e.preventDefault();
-                $(this).closest('.image-input-wrapper').remove();
-            });
-        }
+          
 
 
 
@@ -524,7 +507,6 @@
           $("#codeid").val('');
           $("#cardTitle").text('Add new data');
           $('#preview-image').attr('src', '#');
-          $('#dynamicImages').empty();
           $('#feature-img').val('');
           $('#imageUpload1').val('');
           $("#description").summernote('code', '');
@@ -542,7 +524,7 @@
             var itemId = $(this).data('id');
 
             $.ajax({
-                url: '/admin/toggle-status',
+                url: '{{ route('storiestoggleStatus') }}',
                 method: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
@@ -565,121 +547,7 @@
             });
         });
 
-        // Featured Toggle
-        $(document).on('change', '.toggle-featured', function () {
-            var isChecked = $(this).is(':checked');
-            var itemId = $(this).data('id');
 
-            $.ajax({
-                url: '/admin/toggle-featured',
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    id: itemId,
-                    is_featured: isChecked ? 1 : 0
-                },
-                success: function(d) {
-                    swal({
-                          text: "Status updated",
-                          icon: "success",
-                          button: {
-                              text: "OK",
-                              className: "swal-button--confirm"
-                          }
-                      });
-                },
-                error: function(xhr) {
-                    console.error(xhr.responseText);
-                }
-            });
-        });
-
-        // Popular Toggle
-        $(document).on('change', '.toggle-popular', function () {
-            var isChecked = $(this).is(':checked');
-            var itemId = $(this).data('id');
-
-            $.ajax({
-                url: '/admin/toggle-popular',
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    id: itemId,
-                    is_popular: isChecked ? 1 : 0
-                },
-                success: function(d) {
-                    swal({
-                          text: "Status updated",
-                          icon: "success",
-                          button: {
-                              text: "OK",
-                              className: "swal-button--confirm"
-                          }
-                      });
-                },
-                error: function(xhr) {
-                    console.error(xhr.responseText);
-                }
-            });
-        });
-
-        // Trending Toggle
-        $(document).on('change', '.toggle-trending', function () {
-            var isChecked = $(this).is(':checked');
-            var itemId = $(this).data('id');
-
-            $.ajax({
-                url: '/admin/toggle-trending',
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    id: itemId,
-                    is_trending: isChecked ? 1 : 0
-                },
-                success: function(d) {
-                    swal({
-                          text: "Status updated",
-                          icon: "success",
-                          button: {
-                              text: "OK",
-                              className: "swal-button--confirm"
-                          }
-                      });
-                },
-                error: function(xhr) {
-                    console.error(xhr.responseText);
-                }
-            });
-        });
-
-        // Recent Toggle
-        $(document).on('change', '.toggle-recent', function () {
-            var isChecked = $(this).is(':checked');
-            var itemId = $(this).data('id');
-
-            $.ajax({
-                url: '/admin/toggle-recent',
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}', 
-                    id: itemId,
-                    is_recent: isChecked ? 1 : 0
-                },
-                success: function(d) {
-                    swal({
-                          text: "Status updated",
-                          icon: "success",
-                          button: {
-                              text: "OK",
-                              className: "swal-button--confirm"
-                          }
-                      });
-                },
-                error: function(xhr) {
-                    console.error(xhr.responseText);
-                }
-            });
-        });
     });
 </script>
 
