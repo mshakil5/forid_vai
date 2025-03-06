@@ -113,6 +113,17 @@
 
       
 
+      <li class="nav-item">
+        <a href="{{route('allresearch')}}" class="nav-link {{ (request()->is('admin/research*')) ? 'active' : '' }}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>
+            Research
+          </p>
+        </a>
+      </li>
+
+      
+
 
 
 

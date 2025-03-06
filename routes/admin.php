@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\PoetryController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\EssayController;
+use App\Http\Controllers\Admin\ResearchController;
 
 /*------------------------------------------
 --------------------------------------------
@@ -101,6 +102,15 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/essay/{id}', [EssayController::class, 'essayDelete']);
     Route::post('/essay-toggle-status', [EssayController::class, 'toggleStatus'])->name('essaytoggleStatus');
 
+
+
+    // research
+    Route::get('/research', [ResearchController::class, 'getResearch'])->name('allresearch');
+    Route::post('/research', [ResearchController::class, 'researchStore']);
+    Route::get('/research/{id}/edit', [ResearchController::class, 'researchEdit']);
+    Route::post('/research-update', [ResearchController::class, 'researchUpdate']);
+    Route::get('/research/{id}', [ResearchController::class, 'researchDelete']);
+    Route::post('/research-toggle-status', [ResearchController::class, 'toggleStatus'])->name('researchtoggleStatus');
 
     
 });
