@@ -19,7 +19,7 @@
         </div>
         <div class="col-md-5 p-2">
             <div class=" p-3">
-            <div class="profile-title" style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">Hello</div>
+            <div class="profile-title" style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">মুহাম্মদ ফরিদ হাসান</div>
                 {{-- <h3>About Me</h3>
                 <p id="about-me">I am a passionate editor with experience in writing and content creation. I love crafting stories and refining content to perfection.</p>
                 <h5>Contact Info</h5>
@@ -28,8 +28,8 @@
                     <li><strong>Phone:</strong> <span id="user-phone">123-456-7890</span></li>
                 </ul> --}}
 
-                {!! $profile->about_us !!}
 
+                {!! Str::before($profile->about_us, '</p>') !!}
 
                 <div class="row justify-content-center ">
                     <div class="col-12 col-md-4 profile-buttons p-2">
