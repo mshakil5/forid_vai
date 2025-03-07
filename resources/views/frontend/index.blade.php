@@ -36,20 +36,20 @@
                       <a href="{{route('stories')}}" class="btn btn-success">Stories</a>
                     </div> 
                     <div class="col-12 col-md-4 profile-buttons p-2">
-                      <a href="{{route('stories')}}" class="btn btn-warning">Stories</a>
+                      <a href="{{route('poetries')}}" class="btn btn-warning">Poetry</a>
                     </div> 
                     <div class="col-12 col-md-4 profile-buttons p-2">
-                      <a href="{{route('stories')}}" class="btn btn-secondary">Stories</a>
+                      <a href="{{route('essay')}}" class="btn btn-secondary">Essay</a>
                     </div> 
                     <div class="col-12 col-md-4 profile-buttons p-2">
-                      <a href="{{route('stories')}}" class="btn btn-danger">Stories</a>
+                      <a href="{{route('research')}}" class="btn btn-danger">Research</a>
                     </div> 
                     <div class="col-12 col-md-4 profile-buttons p-2">
+                      <a href="{{route('book')}}" class="btn btn-success">Book</a>
+                    </div> 
+                    {{-- <div class="col-12 col-md-4 profile-buttons p-2">
                       <a href="{{route('stories')}}" class="btn btn-success">Stories</a>
-                    </div> 
-                    <div class="col-12 col-md-4 profile-buttons p-2">
-                      <a href="{{route('stories')}}" class="btn btn-success">Stories</a>
-                    </div> 
+                    </div>  --}}
                 </div>
 
             </div>
