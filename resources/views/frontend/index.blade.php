@@ -32,14 +32,23 @@
 
 
                 <div class="row justify-content-center ">
-                    <div class="col-12 col-md-4 profile-buttons">
+                    <div class="col-12 col-md-4 profile-buttons p-2">
                       <a href="{{route('stories')}}" class="btn btn-success">Stories</a>
                     </div> 
-                    <div class="col-12 col-md-4 profile-buttons">
-                      <button class="btn btn-warning">Resume</button>
+                    <div class="col-12 col-md-4 profile-buttons p-2">
+                      <a href="{{route('stories')}}" class="btn btn-warning">Stories</a>
                     </div> 
-                    <div class="col-12 col-md-4 profile-buttons">
-                      <button class="btn btn-danger">Contact</button>
+                    <div class="col-12 col-md-4 profile-buttons p-2">
+                      <a href="{{route('stories')}}" class="btn btn-secondary">Stories</a>
+                    </div> 
+                    <div class="col-12 col-md-4 profile-buttons p-2">
+                      <a href="{{route('stories')}}" class="btn btn-danger">Stories</a>
+                    </div> 
+                    <div class="col-12 col-md-4 profile-buttons p-2">
+                      <a href="{{route('stories')}}" class="btn btn-success">Stories</a>
+                    </div> 
+                    <div class="col-12 col-md-4 profile-buttons p-2">
+                      <a href="{{route('stories')}}" class="btn btn-success">Stories</a>
                     </div> 
                 </div>
 

@@ -34,7 +34,13 @@ Auth::routes();
 Route::get('/', [FrontendController::class, 'index'])->name('homepage');
 Route::get('/about-us', [FrontendController::class, 'about'])->name('about');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
+
 Route::get('/stories', [FrontendController::class, 'stories'])->name('stories');
+Route::get('/poetries', [FrontendController::class, 'poetries'])->name('poetries');
+Route::get('/essay', [FrontendController::class, 'essay'])->name('essay');
+Route::get('/research', [FrontendController::class, 'research'])->name('research');
+Route::get('/book', [FrontendController::class, 'book'])->name('book');
+
 Route::post('/contact', [FrontendController::class, 'contactMessageStore'])->name('contact.store');
 
 

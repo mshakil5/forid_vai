@@ -64,4 +64,24 @@ class FrontendController extends Controller
     {
         return view('frontend.stories');
     }
+
+    public function poetries()
+    {
+        return view('frontend.poetries');
+    }
+
+    public function essay()
+    {
+        return view('frontend.essay');
+    }
+
+    public function research()
+    {
+        return view('frontend.research');
+    }
+
+    public function book()
+    {
+        return view('frontend.book');
+    }
 }
