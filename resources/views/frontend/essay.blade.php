@@ -29,14 +29,14 @@ $stories = \App\Models\Essay::select('id', 'description', 'name','feature_image'
                 <p>
                     {{-- {!! Str::before(Str::after($story->description, '<p>'), '</p><p>') !!} --}}
 
-                        {{Str::words($story->description, 400, ' (...)')}}
+                        {!! Str::words($story->description, 400, ' (...)') !!}
                 </p>
             </div>
         @else
             <div class="col-md-7">
                 <h2 class="fw-bold">{{$story->name}}</h2>
                 <p>
-                    {{Str::words($story->description, 400, ' (...)')}}
+                    {!! Str::words($story->description, 400, ' (...)') !!}
                 </p>
             </div>
             <div class="col-md-1"></div>
