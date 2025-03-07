@@ -5,9 +5,14 @@
   <!-- Header -->
   <header class="d-flex justify-content-between align-items-center px-4 py-3 bg-white shadow header">
     <div class="d-flex align-items-center">
-      <div class="rounded-circle bg-warning" style="width: 16px; height: 16px;"></div>
-      <h1 class="h5 ms-2 mb-0">{{$profile->company_name}}</h1>
-      <span class="text-muted ms-2">{{$profile->position}}</span>
+      <div class="rounded-circle">
+        <img src="{{asset('images/company/'.$profile->header_logo)}}" alt="Profile Image" class="rounded-circle" style="width: 50px; height: 50px;">
+      </div>
+      <h1 class="h5 ms-2 mb-0">{{$profile->company_name}} <br>
+        <span class="text-muted ms-2" style="font-size: 12px; padding-top: 7px;">{{$profile->position}}</span>
+        
+      </h1> <br>
+      {{-- <span class="text-muted ms-2" style="font-size: 12px; padding-top: 7px;">{{$profile->position}}</span> --}}
     </div>
 
     <!-- Navbar Toggle for Mobile -->

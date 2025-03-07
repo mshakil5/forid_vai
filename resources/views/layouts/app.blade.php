@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
   @php
-      $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_us')->first();
+      $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_us','logo','header_logo')->first();
   @endphp
 <head>
   <meta charset="UTF-8">
