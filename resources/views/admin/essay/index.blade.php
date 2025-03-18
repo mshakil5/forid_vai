@@ -310,6 +310,11 @@
                 var is_trending = $("#is_trending").is(":checked") ? 1 : 0;
                 form_data.append("is_trending", is_trending);
 
+                var featureImgInput = document.querySelector('#feature-img');
+                if(featureImgInput.files && featureImgInput.files[0]) {
+                    form_data.append("feature_image", featureImgInput.files[0]);
+                }
+
 
                     // for (var pair of form_data.entries()) {
                     //     console.log(pair[0]+ ', ' + pair[1]); 

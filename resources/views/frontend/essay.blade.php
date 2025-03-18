@@ -4,7 +4,7 @@
     
 @php
 $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_us','logo')->first();
-$stories = \App\Models\Essay::select('id', 'description', 'name','feature_image','short_description')->get();
+$stories = \App\Models\Essay::select('id','slug' ,'description', 'name','feature_image','short_description')->get();
 @endphp
 <!-- Content Section -->
 <main class="content">
@@ -29,6 +29,7 @@ $stories = \App\Models\Essay::select('id', 'description', 'name','feature_image'
                 <p>
                     {{-- {!! Str::before($story->description, '</p>') !!} --}}
                     {!! Str::words($story->description, 100, ' (...)') !!}
+                    <a href="{{route('essay.show', $story->slug)}}" class="btn btn-link">See More</a>
                 </p>
             </div>
         @else
@@ -36,6 +37,7 @@ $stories = \App\Models\Essay::select('id', 'description', 'name','feature_image'
                 <h2 class="fw-bold">{{$story->name}}</h2>
                 <p>
                     {!! Str::words($story->description, 100, ' (...)') !!}
+                    <a href="{{route('essay.show', $story->slug)}}" class="btn btn-link">See More</a>
                         {{-- {!! Str::before($story->description, '</p>') !!} --}}
                 </p>
             </div>

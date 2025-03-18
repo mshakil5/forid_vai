@@ -23,7 +23,7 @@ class EssayController extends Controller
     public function essayStore(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:poetries,name',
+            'name' => 'required|string|max:255|unique:essays,name',
             'short_description' => 'nullable|string',
             'description' => 'required|string',
             'is_featured' => 'nullable',
@@ -89,7 +89,7 @@ class EssayController extends Controller
     public function essayUpdate(Request $request)
     {
        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:poetries,name,' . $request->codeid,
+            'name' => 'required|string|max:255|unique:essays,name,' . $request->codeid,
             'short_description' => 'nullable|string',
             'description' => 'required|string',
             'is_featured' => 'nullable',

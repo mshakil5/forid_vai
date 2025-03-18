@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\Essay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -73,6 +74,12 @@ class FrontendController extends Controller
     public function essay()
     {
         return view('frontend.essay');
+    }
+
+    public function showessay($slug)
+    {
+        $story = Essay::select('id', 'description', 'name','feature_image','short_description')->where('slug', $slug)->first();
+        return view('frontend.essaydetails', compact('story'));
     }
 
     public function research()
