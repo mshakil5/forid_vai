@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use App\Models\Essay;
+use App\Models\Research;
 use App\Models\Story;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -98,4 +99,11 @@ class FrontendController extends Controller
     {
         return view('frontend.book');
     }
+
+    public function showResearch($slug)
+    {
+        $story = Research::select('id', 'description', 'name','feature_image','short_description')->where('slug', $slug)->first();
+        return view('frontend.essaydetails', compact('story'));
+    }
+
 }

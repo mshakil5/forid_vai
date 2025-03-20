@@ -4,7 +4,6 @@
     
 @php
 $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_us','logo')->first();
-$stories = \App\Models\Essay::select('id', 'description', 'name','feature_image','short_description')->get();
 @endphp
 
 <!-- Content Section -->
