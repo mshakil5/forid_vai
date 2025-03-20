@@ -34,7 +34,7 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-12">
-                                    <label for="name">Story Title<span style="color: red;">*</span></label>
+                                    <label for="name"> Title<span style="color: red;">*</span></label>
                                     <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
                                 </div>
                                 
@@ -42,18 +42,18 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-12">
-                                    <label for="short_description">Short Story<span style="color: red;">*</span></label>
+                                    <label for="short_description">Short<span style="color: red;">*</span></label>
                                     <textarea class="form-control" id="short_description" name="short_description" rows="1" placeholder="Enter short description"></textarea>
                                 </div>
                                 <div class="form-group col-md-12">
-                                    <label for="description">Long Story<span style="color: red;">*</span></label>
+                                    <label for="description">Long Description<span style="color: red;">*</span></label>
                                     <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter long description"></textarea>
                                 </div>
                             </div>
 
                             <div class="form-row category-row">
                                 <div class="form-group col-md-4">
-                                    <label for="category">category<span style="color: red;">*</span></label>
+                                    <label for="category">Category<span style="color: red;">*</span></label>
                                     <select class="form-control category" id="category_id" name="category_id">
                                         <option value="">Select Category</option>
                                         @foreach($categories as $category)
@@ -310,6 +310,10 @@
                 var is_trending = $("#is_trending").is(":checked") ? 1 : 0;
                 form_data.append("is_trending", is_trending);
 
+                var featureImgInput = document.querySelector('#feature-img');
+                if(featureImgInput.files && featureImgInput.files[0]) {
+                    form_data.append("feature_image", featureImgInput.files[0]);
+                }
 
                     // for (var pair of form_data.entries()) {
                     //     console.log(pair[0]+ ', ' + pair[1]); 
@@ -327,7 +331,7 @@
                         pagetop();
                     }else if(d.status == 300){
                         swal({
-                            text: "Story Created",
+                            text: "Data Created",
                             icon: "success",
                             button: {
                                 text: "OK",
@@ -399,7 +403,7 @@
                           pagetop();
                       }else if(d.status == 300){
                           swal({
-                            text: "Product Updated",
+                            text: "Data Updated",
                             icon: "success",
                             button: {
                                 text: "OK",
