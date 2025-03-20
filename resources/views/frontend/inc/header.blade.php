@@ -69,10 +69,14 @@
   </div>
   <div class="offcanvas-body">
     <ul class="nav flex-column">
-      <li class="nav-item"><a href="{{route('homepage')}}" class="nav-link">Home</a></li>
-      <li class="nav-item"><a href="#" class="nav-link">Projects</a></li>
-      <li class="nav-item"><a href="{{route('contact')}}" class="nav-link">Contact</a></li>
-      <li class="nav-item"><a href="#" class="nav-link">More</a></li>
+      <li class="nav-item"><a href="{{route('homepage')}}" class="nav-link fw-bold">Home</a></li>
+      <li class="nav-item"><a href="{{route('essay')}}" class="nav-link fw-bold">Essay</a></li>
+      <li class="nav-item"><a href="{{route('research')}}" class="nav-link fw-bold">Research</a></li>
+      <li class="nav-item"><a href="{{route('stories')}}" class="nav-link fw-bold">Stories</a></li>
+      <li class="nav-item"><a href="{{route('poetries')}}" class="nav-link fw-bold">Poetry</a></li>
+      <li class="nav-item"><a href="{{route('book')}}" class="nav-link fw-bold">Book</a></li>
+      <li class="nav-item"><a href="#" class="nav-link fw-bold">International Publications</a></li>
+      <li class="nav-item"><a href="{{route('contact')}}" class="nav-link fw-bold">Contact</a></li>
     </ul>
   </div>
 </div>
@@ -132,6 +136,17 @@
     .fixed-top {
       position: relative;
     }
+
+    .nav-link {
+      border: 1px solid gray;
+      background-color: #111111;
+      color: #ffffff;
+    }
+    .nav-item{
+      padding-top: 1px;
+      padding-bottom: 1px;
+    }
+
   }
 
   .mobile-menu-btn {
