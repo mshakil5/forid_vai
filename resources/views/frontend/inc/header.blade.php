@@ -1,5 +1,8 @@
 
   
+<!-- Bootstrap Icons CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" rel="stylesheet">
+
 <!-- Header -->
 <header class="d-flex justify-content-between align-items-center px-4 py-3 bg-white shadow-sm fixed-top">
   <div class="d-flex align-items-center">
@@ -19,12 +22,27 @@
         <a href="{{route('homepage')}}" class="nav-link text-dark fw-semibold px-3">Home</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link text-dark fw-semibold px-3">Projects</a>
+        <a href="{{route('essay')}}" class="nav-link text-dark fw-semibold px-3">Essay</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{route('research')}}" class="nav-link text-dark fw-semibold px-3">Research</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{route('stories')}}" class="nav-link text-dark fw-semibold px-3">Stories</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{route('poetries')}}" class="nav-link text-dark fw-semibold px-3">Poetry</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{route('book')}}" class="nav-link text-dark fw-semibold px-3">Book</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link text-dark fw-semibold px-3">International Publications</a>
       </li>
       <li class="nav-item">
         <a href="{{route('contact')}}" class="nav-link text-dark fw-semibold px-3">Contact</a>
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown d-none">
         <a href="#" class="nav-link text-dark fw-semibold px-3 dropdown-toggle" id="moreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           More
         </a>
@@ -115,6 +133,31 @@
       position: relative;
     }
   }
+
+  .mobile-menu-btn {
+    background: white;
+    border: 2px solid #c5c7c9;
+    border-radius: 5px;
+    padding: 10px 12px;
+    box-shadow: 0px 4px 8px rgba(0, 123, 255, 0.3);
+    transition: all 0.3s ease-in-out;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-menu-btn:hover {
+    background: #007bff;
+    color: white;
+    transform: scale(1.05);
+  }
+
+  .mobile-menu-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0px 2px 5px rgba(0, 123, 255, 0.5);
+  }
+
 </style>
 
 
