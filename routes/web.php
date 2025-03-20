@@ -45,6 +45,7 @@ Route::post('/contact', [FrontendController::class, 'contactMessageStore'])->nam
 
 
 Route::get('/essay/{slug}', [FrontendController::class, 'showessay'])->name('essay.show');
+Route::get('/story/{slug}', [FrontendController::class, 'showStory'])->name('story.show');
   
 /*------------------------------------------
 --------------------------------------------
