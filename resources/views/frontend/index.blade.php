@@ -1,7 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-    
+<style>
+  .btn:hover {
+      transform: scale(1.05);
+      transition: all 0.3s ease-in-out;
+  }
+  .profile-img {
+      transition: transform 0.3s ease-in-out;
+  }
+  .profile-img:hover {
+      transform: scale(1.1);
+  }
+  .d-none {
+    display: none;
+  }
+</style>
   @php
       $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_us','logo')->first();
   @endphp
@@ -69,7 +83,15 @@
                     </div>
                     <div class="mt-3">
                         <h3 class="fw-bold" style="font-family: 'Times New Roman', serif;">মুহাম্মদ ফরিদ হাসান</h3>
-                        <p class="text-muted">{!! Str::before($profile->about_us, '</p>') !!}</p>
+                        <div class="text-muted" id="short-about">
+                          <p >{!! Str::before($profile->about_us, '</p>') !!}</p>
+                        </div>
+
+                        <div class="text-muted d-none" id="full-about">
+
+                          <p>{!! $profile->about_us !!}</p>
+                        </div>
+                        <button class="btn btn-light mt-2 fw-bold text-dark" id="see-more-btn">See more</button>
                     </div>
                 </div>
             </div>
@@ -106,19 +128,22 @@
     </div>
 </main>
 
-<style>
-    .btn:hover {
-        transform: scale(1.05);
-        transition: all 0.3s ease-in-out;
-    }
-    .profile-img {
-        transition: transform 0.3s ease-in-out;
-    }
-    .profile-img:hover {
-        transform: scale(1.1);
-    }
-</style>
 
 
 
+
+@endsection
+
+@section('script')
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+      $("#see-more-btn").click(function() {
+          $("#short-about").addClass("d-none");
+          $("#full-about").removeClass("d-none");
+          $(this).hide();
+      });
+  });
+</script>
 @endsection
