@@ -36,7 +36,7 @@ $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_
             object-fit: cover;
             max-height: 400px; /* Adjustable */
         }
-        h1 {
+        .story-content h1 {
             font-size: 2rem;
         }
         .story-description {
@@ -49,7 +49,7 @@ $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_
             .story-image img {
                 max-height: 250px;
             }
-            h1 {
+            .story-content h1 {
                 font-size: 1.5rem;
                 text-align: center;
             }
