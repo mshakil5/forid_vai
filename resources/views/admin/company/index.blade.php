@@ -183,6 +183,13 @@
 
                 <div class="col-sm-12">
                     <div class="form-group">
+                    <label>About Us English</label>
+                    <textarea name="about_us_eng" id="about_us_eng" class="form-control @error('about_us_eng') is-invalid @enderror" cols="30" rows="3">{{$data->about_us_eng}}</textarea>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="form-group">
                     <label>Meta Title</label>
 
                     <input type="text"  name="meta_title" id="meta_title" class="form-control @error('meta_title') is-invalid @enderror" value="{{$data->meta_title}}">
@@ -331,6 +338,7 @@
   $(function () {
     // Summernote
     $('#about_us').summernote()
+    $('#about_us_eng').summernote()
 
     // CodeMirror
     CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {

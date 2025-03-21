@@ -17,7 +17,7 @@
   }
 </style>
   @php
-      $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_us','logo')->first();
+      $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_us','about_us_eng','logo')->first();
   @endphp
   <!-- Content Section -->
   {{-- <main class="content">
@@ -74,27 +74,48 @@
   </main> --}}
   <main class="content py-5">
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row">
             <!-- Profile Section -->
-            <div class="col-md-10 col-lg-8">
-                <div class="card shadow-lg p-4 border-0 rounded-4 text-center">
-                    <div class="d-flex justify-content-center">
-                        <img src="{{asset('images/company/'.$profile->logo)}}" alt="Profile Image" class="profile-img shadow-lg rounded-circle p-3" style="width: 180px; height: 180px; object-fit: cover; border: 5px solid #f8f9fa;">
-                    </div>
-                    <div class="mt-3">
-                        <h3 class="fw-bold" style="font-family: 'Times New Roman', serif;">মুহাম্মদ ফরিদ হাসান</h3>
-                        <div class="text-muted" id="short-about">
-                          <p >{!! Str::before($profile->about_us, '</p>') !!}</p>
+            <div class="col-md-10 col-lg-12">
+              <div class="card shadow-lg p-4 border-0 rounded-4">
+                  <div class="row">
+                      <!-- Left Side: About Us Content -->
+                      <div class="col-md-4 text-start">
+                          <h4 class="fw-bold">About Me</h4>
+                          <div class="text-muted" id="short-about">
+                              <p>{!! Str::before($profile->about_us, '</p>') !!}</p>
+                          </div>
+                          <div class="text-muted d-none" id="full-about">
+                              <p>{!! $profile->about_us !!}</p>
+                          </div>
+                          <button class="btn btn-light mt-2 fw-bold text-dark" id="see-more-btn">See more</button>
+                      </div>
+          
+                      <!-- Middle: Profile Image -->
+                      <div class="col-md-4 text-center">
+                          <img src="{{asset('images/company/'.$profile->logo)}}" alt="Profile Image" 
+                               class="profile-img shadow-lg rounded-circle p-3" 
+                               style="width: 180px; height: 180px; object-fit: cover; border: 5px solid #f8f9fa;">
+                          <h3 class="fw-bold mt-3" style="font-family: 'Times New Roman', serif;">
+                              মুহাম্মদ ফরিদ হাসান
+                          </h3>
+                      </div>
+          
+                      <!-- Right Side: Additional Text -->
+                      <div class="col-md-4 text-end">
+                        <h4 class="fw-bold">About Me</h4>
+                        <div class="text-muted" id="short-about-eng">
+                            <p>{!! Str::limit(strip_tags($profile->about_us_eng), 300) !!}</p>
                         </div>
-
-                        <div class="text-muted d-none" id="full-about">
-
-                          <p>{!! $profile->about_us !!}</p>
+                        <div class="text-muted d-none" id="full-about_eng">
+                            <p>{!! $profile->about_us_eng !!}</p>
                         </div>
-                        <button class="btn btn-light mt-2 fw-bold text-dark" id="see-more-btn">See more</button>
-                    </div>
-                </div>
-            </div>
+                        <button class="btn btn-light mt-2 fw-bold text-dark" id="see-more-eng-btn">See more</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
         </div>
         
         <!-- Buttons Section -->
@@ -142,6 +163,11 @@
       $("#see-more-btn").click(function() {
           $("#short-about").addClass("d-none");
           $("#full-about").removeClass("d-none");
+          $(this).hide();
+      });
+      $("#see-more-eng-btn").click(function() {
+          $("#short-about-eng").addClass("d-none");
+          $("#full-about_eng").removeClass("d-none");
           $(this).hide();
       });
   });

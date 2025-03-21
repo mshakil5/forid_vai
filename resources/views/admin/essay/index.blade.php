@@ -184,7 +184,7 @@
                                     </td>
 
                                     <td>
-                                        {{-- <a id="viewBtn" href="{{ route('product.show', $data->slug) }}">
+                                        {{-- <a id="viewBtn" href="{{ route('book.show', $data->slug) }}">
                                             <i class="fa fa-eye" style="color: #4CAF50; font-size:16px;"></i>
                                         </a> --}}
                                         <a id="EditBtn" rid="{{ $data->id }}">

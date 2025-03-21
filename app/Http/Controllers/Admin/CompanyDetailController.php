@@ -74,6 +74,7 @@ class CompanyDetailController extends Controller
             $team->google_appstore_link= $request->google_appstore_link;
             $team->tawkto = $request->tawkto;
             $team->about_us = $request->about_us;
+            $team->about_us_eng = $request->about_us_eng;
             $team->meta_title = $request->meta_title;
             $team->meta_description = $request->meta_description;
             $team->meta_keywords = $request->meta_keywords;

@@ -40,6 +40,7 @@ Route::get('/poetries', [FrontendController::class, 'poetries'])->name('poetries
 Route::get('/essay', [FrontendController::class, 'essay'])->name('essay');
 Route::get('/research', [FrontendController::class, 'research'])->name('research');
 Route::get('/book', [FrontendController::class, 'book'])->name('book');
+Route::get('/book-details', [FrontendController::class, 'book'])->name('book.show');
 
 Route::post('/contact', [FrontendController::class, 'contactMessageStore'])->name('contact.store');
 
