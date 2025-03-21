@@ -10,21 +10,57 @@ $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_
 <main class="content">
 
     <section class="page-container mt-5">
-        <div class="row">
-            <div class="col-md-4">
-                <img src="{{asset('images/products/'.$story->feature_image)}}" class="img-fluid rounded shadow" alt="Project Image">
-            </div>
-            <div class="col-md-8">
-                <h2 class="mb-3">{{$story->name}}</h2>
-                {{-- <p class="text-muted">Author: Nicol Rider</p>
-                <p class="text-muted">Published: January 1, 2023</p> --}}
-                <p class="mt-4">
-                    {!! $story->description !!}
-                </p>
-                
+        <!-- Feature Image (Full Width on Desktop) -->
+        <div class="story-image">
+            <img src="{{ asset('images/products/'.$story->feature_image) }}" 
+                 class="img-fluid rounded shadow-lg w-100" 
+                 alt="Story Image">
+        </div>
+    
+        <!-- Story Content -->
+        <div class="story-content mt-4">
+            <h1 class="fw-bold text-primary text-center">{{ $story->name }}</h1>
+            <div class="story-description fs-5 text-secondary mt-3">
+                {!! $story->description !!}
             </div>
         </div>
     </section>
+    
+    <style>
+        .page-container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+        .story-image img {
+            object-fit: cover;
+            max-height: 400px; /* Adjustable */
+        }
+        h1 {
+            font-size: 2rem;
+        }
+        .story-description {
+            line-height: 1.8;
+        }
+        @media (max-width: 768px) {
+            .page-container {
+                padding: 15px;
+            }
+            .story-image img {
+                max-height: 250px;
+            }
+            h1 {
+                font-size: 1.5rem;
+                text-align: center;
+            }
+            .story-description {
+                font-size: 1rem;
+                text-align: justify;
+            }
+        }
+    </style>
+    
+    
 
 
 </main>
