@@ -15,6 +15,10 @@
   .d-none {
     display: none;
   }
+  .btn-size {
+    font-size: 24px;
+    padding: 10px 20px;
+  }
 </style>
   @php
       $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_us','about_us_eng','logo')->first();
@@ -99,6 +103,9 @@
                           <h3 class="fw-bold mt-3" style="font-family: 'Times New Roman', serif;">
                               মুহাম্মদ ফরিদ হাসান
                           </h3>
+                          <h5>
+                            লেখক, গবেষক ও সাংবাদিক
+                          </h5>
                       </div>
           
                       <!-- Right Side: Additional Text -->
@@ -125,22 +132,22 @@
                     <h4 class="fw-bold mb-3">Explore</h4>
                     <div class="row g-3 justify-content-center">
                         <div class="col-6 col-md-4 col-lg-3">
-                            <a href="{{route('research')}}" class="btn btn-danger w-100 py-3 rounded-pill shadow-sm">Research</a>
+                            <a href="{{route('research')}}" class="btn btn-danger w-100 rounded-pill shadow-sm btn-size ">Research</a>
                         </div>
                         <div class="col-6 col-md-4 col-lg-3">
-                            <a href="{{route('essay')}}" class="btn btn-secondary w-100 py-3 rounded-pill shadow-sm">Essay</a>
+                            <a href="{{route('essay')}}" class="btn btn-secondary w-100 rounded-pill shadow-sm btn-size">Essay</a>
                         </div>
                         <div class="col-6 col-md-4 col-lg-3">
-                            <a href="{{route('stories')}}" class="btn btn-success w-100 py-3 rounded-pill shadow-sm">Stories</a>
+                            <a href="{{route('stories')}}" class="btn btn-success w-100 rounded-pill shadow-sm btn-size">Stories</a>
                         </div>
                         <div class="col-6 col-md-4 col-lg-3">
-                            <a href="{{route('poetries')}}" class="btn btn-warning w-100 py-3 rounded-pill shadow-sm">Poetry</a>
+                            <a href="{{route('poetries')}}" class="btn btn-warning w-100 rounded-pill shadow-sm btn-size">Poetry</a>
                         </div>
                         <div class="col-12 col-md-4 col-lg-6">
-                            <a href="#" class="btn btn-dark w-100 py-3 rounded-pill shadow-sm" style="font-size: 14px;">International Publications</a>
+                            <a href="#" class="btn btn-dark w-100 rounded-pill shadow-sm btn-size" >International Publications</a>
                         </div>
                         <div class="col-6 col-md-4 col-lg-3">
-                            <a href="{{route('book')}}" class="btn btn-info w-100 py-3 rounded-pill shadow-sm">Book</a>
+                            <a href="{{route('book')}}" class="btn btn-info w-100 rounded-pill shadow-sm btn-size">Book</a>
                         </div>
                     </div>
                 </div>
