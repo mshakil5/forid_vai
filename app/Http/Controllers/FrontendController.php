@@ -104,6 +104,13 @@ class FrontendController extends Controller
         return view('frontend.book', compact('data'));
     }
 
+    public function bookDetails($slug)
+    {
+        $data = Book::where('slug', $slug)->first();
+        // dd($data);
+        return view('frontend.bookDetails', compact('data'));
+    }
+
     public function showResearch($slug)
     {
         $story = Research::select('id', 'description', 'name','feature_image','short_description')->where('slug', $slug)->first();

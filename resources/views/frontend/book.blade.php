@@ -184,7 +184,7 @@ $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_
         <div class="book-grid">
             @foreach ($data as $book)
                 <div class="book-card">
-                    <a href="" class="book-link"><img src="{{ asset('images/products/' . $book->feature_image) }}" alt="{{ $book->name }}">
+                    <a href="{{ route('book.bookDetails', $book->slug)}}" class="book-link"><img src="{{ asset('images/products/' . $book->feature_image) }}" alt="{{ $book->name }}">
                     <p>{{ $book->name }}</p></a>
                 </div>
                 
