@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Contact;
 use App\Models\Essay;
 use App\Models\Poetry;
@@ -98,7 +99,9 @@ class FrontendController extends Controller
 
     public function book()
     {
-        return view('frontend.book');
+        $data = Book::latest()->get();
+        // dd($data);
+        return view('frontend.book', compact('data'));
     }
 
     public function showResearch($slug)

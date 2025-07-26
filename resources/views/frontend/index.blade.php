@@ -126,7 +126,7 @@
         </div>
         
         <!-- Buttons Section -->
-        <div class="row justify-content-center mt-4">
+        <div class="row justify-content-center mt-4 d-none">
             <div class="col-md-10 col-lg-12">
                 <div class="card shadow-lg p-4 border-0 rounded-4 text-center">
                     <h4 class="fw-bold mb-3">Explore</h4>

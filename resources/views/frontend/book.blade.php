@@ -20,13 +20,19 @@ $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_
     }
     .book-card {
         text-align: center;
-        border: 1px solid #ddd;
+        border: 1px solid #ffffff;
         padding: 10px;
         background-color: #fff;
+        text-decoration: none;
     }
     .book-card img {
         max-width: 100%;
         height: auto;
+    }
+
+    .book-link {
+        color: #000; /* Default text color */
+        text-decoration: none; /* Remove underline */
     }
 
     /* Responsive adjustments */
@@ -41,6 +47,7 @@ $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_
         }
         .book-card {
             padding: 5px;
+            text-decoration: none
         }
         .book-card img {
             max-width: 80%;
@@ -175,25 +182,17 @@ $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_
     <div class="container">
         <h2 class="text-center my-4">PAULO'S BOOKS</h2>
         <div class="book-grid">
-            <div class="book-card"><img src="{{asset('slide2-1.png')}}" alt="Maktub"><p>Maktub</p></div>
-            <div class="book-card"><img src="{{asset('slide2-1.png')}}" alt="Pilgrimage"><p>Pilgrimage</p></div>
-            <div class="book-card"><img src="{{asset('slide2-1.png')}}" alt="The Alchemist"><p>The Alchemist</p></div>
-            <div class="book-card"><img src="{{asset('slide2-1.png')}}" alt="Warrior of the Light"><p>Warrior of the Light</p></div>
-            <div class="book-card"><img src="{{asset('slide2-1.png')}}" alt="The Fifth Mountain"><p>The Fifth Mountain</p></div>
-            <div class="book-card"><img src="{{asset('slide2-1.png')}}" alt="The Zahir"><p>The Zahir</p></div>
-            <div class="book-card"><img src="{{asset('slide2-1.png')}}" alt="Eleven Minutes"><p>Eleven Minutes</p></div>
-            <div class="book-card"><img src="{{asset('slide2-1.png')}}" alt="The Devil and Miss Prym"><p>The Devil and Miss Prym</p></div>
-            <div class="book-card"><img src="{{asset('slide2-1.png')}}" alt="Brida"><p>Brida</p></div>
-            <div class="book-card"><img src="{{asset('slide2-1.png')}}" alt="By the River Piedra I Sat Down"><p>By the River Piedra I Sat Down</p></div>
-            <div class="book-card"><img src="{{asset('slide2-1.png')}}" alt="Veronika Decides to Die"><p>Veronika Decides to Die</p></div>
-            <div class="book-card"><img src="{{asset('slide2-1.png')}}" alt="The Winner Stands Alone"><p>The Winner Stands Alone</p></div>
-            <div class="book-card"><img src="{{asset('slide2-1.png')}}" alt="The Valkyries"><p>The Valkyries</p></div>
-            <div class="book-card"><img src="{{asset('slide2-1.png')}}" alt="The Witch of Portobello"><p>The Witch of Portobello</p></div>
+            @foreach ($data as $book)
+                <div class="book-card">
+                    <a href="" class="book-link"><img src="{{ asset('images/products/' . $book->feature_image) }}" alt="{{ $book->name }}">
+                    <p>{{ $book->name }}</p></a>
+                </div>
+                
+            @endforeach
         </div>
-        <p class="text-center">MORE BOOKS BY PAULO</p>
     </div>
 
-    <div class="newsletter">
+    <div class="newsletter d-none">
         <div class="container">
             <h3>SIGN UP FOR EXCLUSIVE PAULO COELHO NEWS</h3>
             <form>
