@@ -26,7 +26,7 @@
               <li class="nav-item"><a href="{{route('stories')}}" class="nav-link fw-bold">Stories</a></li>
               <li class="nav-item"><a href="{{route('poetries')}}" class="nav-link fw-bold">Poetry</a></li>
               <li class="nav-item"><a href="{{route('book')}}" class="nav-link fw-bold">Book</a></li>
-              <li class="nav-item"><a href="#" class="nav-link fw-bold">International Publications</a></li>
+              <li class="nav-item"><a href="{{route('publications')}}" class="nav-link fw-bold">International Publications</a></li>
               <li class="nav-item"><a href="{{route('contact')}}" class="nav-link fw-bold">Contact</a></li>
             </ul>
         </div>
