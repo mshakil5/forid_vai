@@ -153,8 +153,8 @@ $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_
 
             @foreach ($data as $key => $item)
                 <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
-                    <div class="d-flex justify-content-end">
-                        <img src="{{ asset('images/products/' . $item->feature_image) }}" class="d-block" style="max-width: 50%;" alt="{{ $item->name }}">
+                    <div class="d-flex justify-content-end m-3">
+                        <img src="{{ asset('images/products/' . $item->feature_image) }}" class="d-block m-5" style="height:300px" alt="{{ $item->name }}">
                     </div>
                     <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
                         <h5>{{ $item->name }}</h5>
