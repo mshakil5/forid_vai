@@ -122,4 +122,9 @@ class FrontendController extends Controller
         return view('frontend.essaydetails', compact('story'));
     }
 
+
+    public function publications()
+    {
+        return view('frontend.publications');
+    }
 }

@@ -124,6 +124,16 @@
 
       
 
+      <li class="nav-item">
+        <a href="{{route('admin.internationalPublication')}}" class="nav-link {{ (request()->is('admin/international-publication*')) ? 'active' : '' }}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>
+            Int. Publication
+          </p>
+        </a>
+      </li>
+      
+
 
 
 

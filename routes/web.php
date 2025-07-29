@@ -42,6 +42,9 @@ Route::get('/research', [FrontendController::class, 'research'])->name('research
 Route::get('/book', [FrontendController::class, 'book'])->name('book');
 Route::get('/book-details/{slag}', [FrontendController::class, 'bookDetails'])->name('book.bookDetails');
 
+
+Route::get('/publications', [FrontendController::class, 'publications'])->name('publications');
+
 Route::post('/contact', [FrontendController::class, 'contactMessageStore'])->name('contact.store');
 
 

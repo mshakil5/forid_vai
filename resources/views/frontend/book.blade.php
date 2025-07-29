@@ -150,24 +150,20 @@ $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_
 
     <div id="slider" class="carousel slide" data-bs-ride="carousel" style="background-image: url('{{ asset('slider-bg.jpg') }}'); background-repeat:no-repeat; background-size:cover; background-position:center center;">
         <div class="carousel-inner home-banner-slider">
-            <div class="carousel-item active">
-                <div class="d-flex justify-content-end">
-                    <img src="{{asset('slide2-1.png')}}" class="d-block" style="max-width: 50%;" alt="Slide 1">
+
+            @foreach ($data as $key => $item)
+                <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
+                    <div class="d-flex justify-content-end">
+                        <img src="{{ asset('images/products/' . $book->feature_image) }}" class="d-block" style="max-width: 50%;" alt="{{ $book->name }}">
+                    </div>
+                    <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
+                        <h5>{{ $book->name }}</h5>
+                        <a href="{{ route('book.bookDetails', $book->slug)}}" class="btn btn-dark">See More</a>
+                    </div>
                 </div>
-                <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
-                    <h5>What are the words you want to live by?</h5>
-                    <a href="#" class="btn btn-dark">Learn More</a>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="d-flex justify-content-end">
-                    <img src="{{asset('slide2-1.png')}}" class="d-block" style="max-width: 50%;" alt="Slide 2">
-                </div>
-                <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
-                    <h5>Explore The Alchemist</h5>
-                    <a href="#" class="btn btn-dark">Learn More</a>
-                </div>
-            </div>
+            @endforeach
+            
+
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#slider" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -180,7 +176,7 @@ $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_
     </div>
 
     <div class="container">
-        <h2 class="text-center my-4">PAULO'S BOOKS</h2>
+        <h2 class="text-center my-4"> BOOKS</h2>
         <div class="book-grid">
             @foreach ($data as $book)
                 <div class="book-card">
@@ -205,7 +201,7 @@ $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_
         </div>
     </div>
 
-    <div class="container resources">
+    <div class="container resources d-none">
         <h2 class="text-center my-4">RESOURCES</h2>
         <div id="resourceCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">

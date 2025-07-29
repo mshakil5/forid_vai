@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\PoetryController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\EssayController;
 use App\Http\Controllers\Admin\ResearchController;
+use App\Http\Controllers\Admin\InternationalPublicationController;
 
 /*------------------------------------------
 --------------------------------------------
@@ -111,6 +112,16 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::post('/research-update', [ResearchController::class, 'researchUpdate']);
     Route::get('/research/{id}', [ResearchController::class, 'researchDelete']);
     Route::post('/research-toggle-status', [ResearchController::class, 'toggleStatus'])->name('researchtoggleStatus');
+
+    // International Publication routes
+    Route::group(['prefix' => 'international-publication'], function () {
+        Route::get('/', [InternationalPublicationController::class, 'index'])->name('admin.internationalPublication');
+        Route::post('/', [InternationalPublicationController::class, 'store']);
+        Route::get('/{id}/edit', [InternationalPublicationController::class, 'edit']);
+        Route::post('/update', [InternationalPublicationController::class, 'update']);
+        Route::get('/{id}', [InternationalPublicationController::class, 'delete']);
+        Route::post('/toggle-status', [InternationalPublicationController::class, 'toggleStatus'])->name('internationalPublicationToggleStatus');
+    });
 
     
 });
