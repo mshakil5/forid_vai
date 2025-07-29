@@ -228,9 +228,22 @@
                                     </td>
 
                                     <td>
-                                        <a id="viewBtn" href="{{ route('book.show', $data->slug) }}">
-                                            <i class="fa fa-eye" style="color: #4CAF50; font-size:16px;"></i>
-                                        </a>
+
+                                        <button type="button" 
+                                            class="btn btn-info btn-sm view-details" 
+                                            data-id="{{ $data->id }}"
+                                            data-name="{{ $data->name }}"
+                                            data-description="{{ $data->description }}"
+                                            data-short_description="{{ $data->short_description }}"
+                                            data-price="{{ $data->price }}"
+                                            data-meta_title="{{ $data->meta_title }}"
+                                            data-meta_description="{{ $data->meta_description }}"
+                                            data-meta_keywords="{{ $data->meta_keywords }}"
+                                            data-feature_image="{{ $data->feature_image }}"
+                                        >
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+
                                         <a id="EditBtn" rid="{{ $data->id }}">
                                             <i class="fa fa-edit" style="color: #2196f3; font-size:16px;"></i>
                                         </a>
@@ -771,6 +784,55 @@
           firstRow.find(".subcategory-section").hide();
           $('#addBtn').attr('disabled', false);
       }
+
+
+      // view details in modal
+    $("#contentContainer").on('click', '.view-details', function() {
+        var name = $(this).data('name');
+        var description = $(this).data('description');
+        var short_description = $(this).data('short_description');
+        var price = $(this).data('price');
+        var meta_title = $(this).data('meta_title');
+        var meta_description = $(this).data('meta_description');
+        var meta_keywords = $(this).data('meta_keywords');
+        var feature_image = $(this).data('feature_image');
+
+        var modalHtml = `
+            <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="detailsModalLabel">${name}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <img src="/images/products/${feature_image}" alt="Feature Image" style="max-width:200px; margin-bottom:15px;">
+                    <p><strong>Price:</strong> ${price}</p>
+                    <p><strong>Short Description:</strong> ${short_description}</p>
+                    <p><strong>Description:</strong> ${description}</p>
+                    <p><strong>Meta Title:</strong> ${meta_title}</p>
+                    <p><strong>Meta Description:</strong> ${meta_description}</p>
+                    <p><strong>Meta Keywords:</strong> ${meta_keywords}</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        `;
+
+        // Remove any existing modal
+        $('#detailsModal').remove();
+        // Append modal to body
+        $('body').append(modalHtml);
+        // Show modal
+        $('#detailsModal').modal('show');
+    });
+
+
   });
 </script>
 
