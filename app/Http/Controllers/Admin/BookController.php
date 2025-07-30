@@ -142,11 +142,11 @@ class BookController extends Controller
     public function productUpdate(Request $request)
     {
        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:products,name,' . $request->codeid,
+            'name' => 'required|string|max:255|unique:books,name,' . $request->codeid,
             'short_description' => 'nullable|string',
             'description' => 'required|string',
             'price' => 'required|numeric',
-            'product_code' => 'required|unique:products,product_code,' . $request->codeid,
+            'product_code' => 'required|unique:books,product_code,' . $request->codeid,
             'is_featured' => 'nullable',
             'is_recent' => 'nullable',
             'is_new_arrival' => 'nullable',
