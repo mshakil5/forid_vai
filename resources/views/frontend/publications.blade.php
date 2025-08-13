@@ -26,22 +26,22 @@ $data = \App\Models\Publication::select('id','slug', 'description', 'name','feat
                         <!-- Text Right -->
                         <div class="col-md-6">
                             <h2 class="fw-bold title">
-                                <a href="{{ route('research.show', $story->slug) }}">{{ $story->name }}</a>
+                                <a href="{{ route('publication.show', $story->slug) }}">{{ $story->name }}</a>
                             </h2>
                             <p>
                                 {!! Str::limit(strip_tags($story->description), 200) !!}
-                                <a href="{{ route('research.show', $story->slug) }}" class="btn btn-link">See More</a>
+                                <a href="{{ route('publication.show', $story->slug) }}" class="btn btn-link">See More</a>
                             </p>
                         </div>
                     @else
                         <!-- Text Left -->
                         <div class="col-md-6">
                             <h2 class="fw-bold title">
-                                <a href="{{ route('research.show', $story->slug) }}">{{ $story->name }}</a>
+                                <a href="{{ route('publication.show', $story->slug) }}">{{ $story->name }}</a>
                             </h2>
                             <p>
                                 {!! Str::limit(strip_tags($story->description), 200) !!}
-                                <a href="{{ route('research.show', $story->slug) }}" class="btn btn-link">See More</a>
+                                <a href="{{ route('publication.show', $story->slug) }}" class="btn btn-link">See More</a>
                             </p>
                         </div>
                         <div class="col-md-1"></div>

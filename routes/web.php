@@ -52,6 +52,7 @@ Route::get('/essay/{slug}', [FrontendController::class, 'showessay'])->name('ess
 Route::get('/story/{slug}', [FrontendController::class, 'showStory'])->name('story.show');
 Route::get('/research/{slug}', [FrontendController::class, 'showResearch'])->name('research.show');
 Route::get('/poetries/{slug}', [FrontendController::class, 'showPoetries'])->name('poetries.show');
+Route::get('/publication/{slug}', [FrontendController::class, 'showPublication'])->name('publication.show');
   
 /*------------------------------------------
 --------------------------------------------

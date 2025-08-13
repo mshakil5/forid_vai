@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\Contact;
 use App\Models\Essay;
 use App\Models\Poetry;
+use App\Models\Publication;
 use App\Models\Research;
 use App\Models\Story;
 use Illuminate\Http\Request;
@@ -100,14 +101,12 @@ class FrontendController extends Controller
     public function book()
     {
         $data = Book::latest()->get();
-        // dd($data);
         return view('frontend.book', compact('data'));
     }
 
     public function bookDetails($slug)
     {
         $data = Book::where('slug', $slug)->first();
-        // dd($data);
         return view('frontend.bookDetails', compact('data'));
     }
 
@@ -116,6 +115,8 @@ class FrontendController extends Controller
         $story = Research::select('id', 'description', 'name','feature_image','short_description')->where('slug', $slug)->first();
         return view('frontend.essaydetails', compact('story'));
     }
+
+
     public function showPoetries($slug)
     {
         $story = Poetry::select('id', 'description', 'name','feature_image','short_description')->where('slug', $slug)->first();
@@ -126,5 +127,11 @@ class FrontendController extends Controller
     public function publications()
     {
         return view('frontend.publications');
+    }
+
+    public function showPublication($slug)
+    {
+        $data = Publication::select('id', 'description', 'name','feature_image','short_description')->where('slug', $slug)->first();
+        return view('frontend.publicationDetails', compact('data'));
     }
 }
