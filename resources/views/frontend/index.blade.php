@@ -19,64 +19,118 @@
     font-size: 24px;
     padding: 10px 20px;
   }
+  
+    .home-banner-slider img{
+        width: 253px !important;
+    }
+
+    .carousel-inner {
+        position: relative;
+        height: 400px; /* Fixed height for consistency */
+    }
+    .carousel-item img {
+        height: 100%;
+        object-fit: contain; /* Ensure image scales without distortion */
+    }
+    .carousel-caption {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: #fff; /* Ensure text is readable against background */
+        text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Improve readability */
+    }
+    .carousel-caption h5 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+    .carousel-caption .btn {
+        font-size: 1rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .carousel-inner {
+            height: 250px;
+        }
+        .carousel-item img {
+            max-width: 40%; /* Slightly smaller image on mobile */
+        }
+        .carousel-caption h5 {
+            font-size: 1.2rem;
+        }
+        .carousel-caption .btn {
+            font-size: 0.9rem;
+            padding: 8px 16px;
+        }
+    }
+    @media (max-width: 576px) {
+        .carousel-inner {
+            height: 200px;
+        }
+        .carousel-item img {
+            max-width: 35%;
+        }
+        .carousel-caption h5 {
+            font-size: 1rem;
+        }
+        .carousel-caption .btn {
+            font-size: 0.8rem;
+            padding: 6px 12px;
+        }
+    }
+
 </style>
+
+
+
   @php
       $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_us','about_us_eng','logo')->first();
   @endphp
-  <!-- Content Section -->
-  {{-- <main class="content">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-4 text-center p-2">
-          <div class="p-3 text-center">
-            <!-- Profile Picture -->
-            <div class="d-flex justify-content-center">
-              <img src="{{asset('images/company/'.$profile->logo)}}" alt="Profile Image" class="profile-img shadow p-3">
 
-              
-            </div>
-          </div>
-          <div class=" p-3">
-            <div class="profile-title" style="font-family: 'Times New Roman', Times, serif; font-weight: bold;">মুহাম্মদ ফরিদ হাসান</div>
 
-              {!! Str::before($profile->about_us, '</p>') !!}
+    <div id="slider" class="carousel slide" data-bs-ride="carousel" style="background-image: url('{{ asset('banner.jpg') }}'); background-repeat:no-repeat; background-size:cover; height: 582px; background-position:center center;">
+        <div class="carousel-inner home-banner-slider">
 
-          </div>
-        </div>
-        <div class="col-md-5 p-2">
-            <div class=" p-3">
-
-                <div class="row justify-content-center pt-4">
-                  <div class="col-12 col-md-4 profile-buttons p-2">
-                    <a href="{{route('research')}}" class="btn btn-danger">Research</a>
-                  </div> 
-                  <div class="col-12 col-md-4 profile-buttons p-2">
-                    <a href="{{route('essay')}}" class="btn btn-secondary">Essay</a>
-                  </div> 
-                    <div class="col-12 col-md-4 profile-buttons p-2">
-                      <a href="{{route('stories')}}" class="btn btn-success">Stories</a>
-                    </div> 
-                    <div class="col-12 col-md-4 profile-buttons p-2">
-                      <a href="{{route('poetries')}}" class="btn btn-warning">Poetry</a>
-                    </div> 
-                    <div class="col-12 col-md-4 profile-buttons p-2">
-                      <a href="{{route('book')}}" class="btn btn-info">Book</a>
-                    </div> 
-                    
-                    <div class="col-12 col-md-4 profile-buttons p-2">
-                      <a href="#" class="btn btn-dark" style="font-size: 13px;">International Publications</a>
-                    </div> 
-                    
+          
+                <div class="carousel-item active">
+                    <div class="d-flex justify-content-end m-3">
+                      <p>test data</p>
+                    </div>
+                    <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
+                      
+                    </div>
                 </div>
 
-            </div>
+                
+          
+                <div class="carousel-item">
+                    <div class="d-flex justify-content-end m-3">
+                      <p>test data 2</p>
+                    </div>
+                    <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
+                      
+                    </div>
+                </div>
+                
+            
+
         </div>
-      </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#slider" data-bs-slide="prev">
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#slider" data-bs-slide="next">
+            <span class="visually-hidden">Next</span>
+        </button>
 
 
     </div>
-  </main> --}}
-  <main class="content py-5">
+
+
+
+
+<main class="content py-5">
     <div class="container">
         <div class="row">
             <!-- Profile Section -->
