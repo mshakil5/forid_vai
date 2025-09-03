@@ -8,16 +8,35 @@
   @endphp
 <head>
     <meta charset="UTF-8">
-  <!-- CSRF Token -->
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{$profile->company_name}}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>
+        @hasSection('title')
+            @yield('title')
+        @else
+            {{$profile->company_name}}
+        @endif
+    </title>
+    <meta name="description" content="@yield('meta_description', $profile->about_us ?? 'Farid Hasan')">
+    <meta name="keywords" content="{{ $profile->company_name }}, {{ $profile->position }}">
+    <meta name="author" content="{{ $profile->company_name }}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-      <!-- Custom CSS for Mobile Responsiveness -->
-  {{-- <link rel="stylesheet" href="{{ asset('assets/frontend/css/style.css')}}"> --}}
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="@yield('meta_title', $profile->company_name)">
+    <meta property="og:description" content="@yield('meta_description', $profile->about_us ?? 'Farid Hasan')">
+    <meta property="og:image" content="@yield('meta_image', asset($profile->logo ?? 'default.png'))">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter -->
+    <meta name="twitter:title" content="@yield('meta_title', $profile->company_name)">
+    <meta name="twitter:description" content="@yield('meta_description', $profile->about_us ?? 'Farid Hasan')">
+    <meta name="twitter:image" content="@yield('meta_image', asset($profile->logo ?? 'default.png'))">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">   <!-- Custom CSS for Mobile Responsiveness -->
+    {{-- <link rel="stylesheet" href="{{ asset('assets/frontend/css/style.css')}}"> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <style>
         .hero-bg {
