@@ -164,7 +164,7 @@
 <div id="slider" class="carousel slide" data-bs-ride="carousel" aria-label="Hero carousel">
   <div class="carousel-inner">
     {{-- Slide 1 --}}
-    <div class="carousel-item active">
+    <div class="carousel-item ">
       {{-- Background for md+ (absolute fill) --}}
       <div class="carousel-item-bg" style="background-image: url('{{ $banner }}');"></div>
 
@@ -188,7 +188,7 @@
     </div>
 
     {{-- Slide 2: English about (same banner) --}}
-    <div class="carousel-item">
+    <div class="carousel-item active">
       <div class="carousel-item-bg" style="background-image: url('{{ $banner }}');"></div>
       <img class="hero-img d-block d-md-none" src="{{ $banner }}" alt="Banner image">
 
