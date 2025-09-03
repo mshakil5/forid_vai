@@ -38,88 +38,11 @@
     {{-- <link rel="stylesheet" href="{{ asset('assets/frontend/css/style.css')}}"> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+
+    <link rel="stylesheet" href="{{ asset('assets/frontend/css/app.css')}}">
+
     <style>
-        .hero-bg {
-            background-color: #f9e4bc;
-            padding: 40px 0;
-            text-align: center;
-        }
-        .navbar-nav {
-            margin-left: auto;
-        }
-        .nav-item {
-            margin-left: 15px;
-        }
-        .nav-item .nav-link {
-            color: #000;
-            transition: color 0.3s;
-        }
-        .nav-item .nav-link:hover {
-            color: #007bff;
-            text-decoration: underline;
-        }
-        .newsletter {
-            background-color: #f1f1f1;
-            padding: 20px;
-            text-align: center;
-        }
-        .resources {
-            padding: 40px 0;
-            text-align: center;
-        }
-        .about-img {
-            max-width: 200px;
-            border-radius: 50%;
-        }
-        /* Mobile-specific styles */
-        @media (max-width: 768px) {
-            .navbar-nav {
-                flex-direction: column;
-                align-items: center;
-                width: 100%;
-            }
-            .navbar-collapse {
-                background-color: #f8f9fa;
-                padding: 10px;
-            }
-            .navbar-nav .nav-item {
-                margin: 10px 0;
-            }
-            .navbar-nav .nav-link {
-                font-size: 1.2rem;
-                padding: 10px;
-                width: 100%;
-                text-align: center;
-            }
-            .carousel-caption {
-                display: block !important;
-                font-size: 0.9rem;
-            }
-            .carousel-caption h5 {
-                font-size: 1rem;
-            }
-            .about-img {
-                max-width: 150px;
-            }
-            .newsletter form {
-                max-width: 90%;
-                margin: 0 auto;
-            }
-            .resources .card {
-                margin-bottom: 15px;
-            }
-        }
-        @media (max-width: 576px) {
-            .newsletter h3 {
-                font-size: 1.2rem;
-            }
-            .newsletter .form-control {
-                font-size: 0.9rem;
-            }
-            .about-img {
-                max-width: 120px;
-            }
-        }
+   
     </style>
 </head>
 <body>

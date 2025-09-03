@@ -16,9 +16,8 @@ class FrontendController extends Controller
 {
     public function index()
     {
-        $books = Book::latest()->get();
+        $books = Book::latest()->limit(16)->get();
         return view('frontend.index', compact('books'));
-        // return view('auth.login');
     }
 
     public function contact()
