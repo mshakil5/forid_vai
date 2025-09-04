@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+
+@section('title', $data->name)
+@section('meta_title', $data->name)
+@section('meta_description',$data->description)
+@section('meta_image', asset('images/products/' . $data->feature_image))
 @section('content')
     
 @php

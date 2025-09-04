@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+
+
+
+@section('title', $story->name)
+@section('meta_title', $story->name)
+@section('meta_description',$story->description)
+@section('meta_image', asset('images/products/' . $story->feature_image))
+
+
 @section('content')
     
 @php
