@@ -143,11 +143,119 @@
 
 
 
+<style>
+  /* ================== Book Slider ================== */
+#bookSlider .carousel-inner .carousel-item { padding: 1.25rem 0; }
+#bookSlider .carousel-book {
+  text-align: center;
+  padding: 0.65rem;
+  width: 280px;
+}
+.carousel-book a{
+  text-decoration: none;
+  color: inherit;
+}
+#bookSlider .carousel-book img {
+  width: 240px;
+  height: 310px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto 0.6rem;
+}
+#bookSlider .book-title {
+  font-weight: 700;
+  font-size: .95rem;
+  margin: 0;
+}
+#bookSlider .book-price {
+  color: #666;
+  font-size: .9rem;
+  margin: 0.15rem 0 0;
+}
+
+/* Mobile horizontal scroll */
+.books-scroll {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding: 12px 8px;
+  -webkit-overflow-scrolling: touch;
+}
+.books-scroll .carousel-book {
+  flex: 0 0 auto;
+  width: 140px;
+}
+
+/* Hide/show responsive */
+@media (max-width: 767.98px) {
+  #bookSlider { display: none !important; }
+  .books-scroll { display: flex; }
+}
+@media (min-width: 768px) {
+  .books-scroll { display: none; }
+}
+
+</style>
 
 
 
 
+<!-- ================== Books Carousel ================== -->
+<div class="container section-container" id="books-carousel-section">
+  <h2 class="section-title">Featured Poetry</h2>
 
+  <!-- Desktop Carousel -->
+  <div id="bookSlider"
+       class="carousel slide d-none d-md-block"
+       data-bs-ride="carousel"
+       data-bs-interval="3500"   {{-- autoplay every 3.5s --}}
+       data-bs-pause="hover">    {{-- pause when mouse enters --}}
+    <div class="carousel-inner">
+
+      @foreach ($poetries->chunk(4) as $chunkIndex => $chunk)
+        <div class="carousel-item {{ $chunkIndex === 0 ? 'active' : '' }}">
+          <div class="d-flex justify-content-center flex-wrap">
+            @foreach ($chunk as $poetry)
+              <div class="carousel-book">
+                <img loading="lazy"
+                     src="{{ asset('images/products/' . $poetry->feature_image) }}"
+                     alt="{{ $poetry->name }}">
+                <a href="{{ route('poetries.show', $poetry->slug) }}">
+                  <p class="book-title">{{ $poetry->name }}</p>
+                </a>
+              </div>
+            @endforeach
+          </div>
+        </div>
+      @endforeach
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#bookSlider" data-bs-slide="prev">
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#bookSlider" data-bs-slide="next">
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <!-- Mobile Horizontal Scroll -->
+  <div class="books-scroll d-md-none">
+    @foreach ($books as $book)
+      <div class="carousel-book">
+        <img loading="lazy"
+             src="{{ asset('images/products/' . $book->feature_image) }}"
+             alt="{{ $book->name }}">
+        <a href="{{ route('book.bookDetails', $book->slug) }}">
+          <p class="book-title">{{ $book->name }}</p>
+        </a>
+        @if(!empty($book->price))
+          <p class="book-price">${{ $book->price }}</p>
+        @endif
+      </div>
+    @endforeach
+  </div>
+</div>
 
 
 
@@ -280,4 +388,19 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const bookSlider = document.querySelector('#bookSlider');
+  if (bookSlider) {
+    const carousel = new bootstrap.Carousel(bookSlider, {
+      interval: 3500,  // autoplay speed
+      pause: 'hover',  // pause on hover
+      ride: 'carousel'
+    });
+  }
+});
+</script>
+
+
 @endsection

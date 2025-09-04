@@ -17,7 +17,10 @@ class FrontendController extends Controller
     public function index()
     {
         $books = Book::latest()->limit(16)->get();
-        return view('frontend.index', compact('books'));
+
+        $poetries = Poetry::select('id','slug', 'description', 'name','feature_image','short_description')->orderby('id', 'DESC')->get();
+
+        return view('frontend.index', compact('books','poetries'));
     }
 
     public function contact()
