@@ -174,7 +174,22 @@
                                         
                                     </td>
                                     <td>
-                                        {!! Str::before($data->description, '</p>') !!}
+                                       <div id="accordion{{ $data->id }}">
+                                            <div class="card">
+                                                <div class="card-header p-1" id="heading{{ $data->id }}">
+                                                    <h5 class="mb-0">
+                                                        <button class="btn btn-link p-1" data-toggle="collapse" data-target="#collapse{{ $data->id }}" aria-expanded="false" aria-controls="collapse{{ $data->id }}" style="font-size: 12px;">
+                                                            Show Description
+                                                        </button>
+                                                    </h5>
+                                                </div>
+                                                <div id="collapse{{ $data->id }}" class="collapse" aria-labelledby="heading{{ $data->id }}" data-parent="#accordion{{ $data->id }}">
+                                                    <div class="card-body p-2" style="font-size: 13px;">
+                                                        {!! $data->description !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td>
                                         <div class="custom-control custom-switch">
@@ -184,6 +199,23 @@
                                     </td>
 
                                     <td>
+
+                                        
+                                        <a href="javascript:void(0);" class="btn btn-info btn-sm detailsBtn"
+                                            data-id="{{ $data->id }}"
+                                            data-title="{{ $data->name }}"
+                                            data-image="{{ asset('images/products/' . $data->feature_image) }}"
+                                            data-description="{{ e(strip_tags($data->description)) }}"
+                                            data-short_description="{{ e(strip_tags($data->short_description)) }}"
+                                            data-category="{{ optional($data->category)->name }}"
+                                            data-meta_title="{{ $data->meta_title }}"
+                                            data-meta_description="{{ $data->meta_description }}"
+                                            data-meta_keywords="{{ $data->meta_keywords }}"
+                                            data-status="{{ $data->status }}"
+                                            style="margin-right:5px;">
+                                             <i class="fa fa-eye"></i>
+                                        </a>
+
                                         {{-- <a id="viewBtn" href="{{ route('book.show', $data->slug) }}">
                                             <i class="fa fa-eye" style="color: #4CAF50; font-size:16px;"></i>
                                         </a> --}}
@@ -243,7 +275,41 @@
 </style>
 
 @endsection
-
+<!-- Story Details Modal -->
+<div class="modal fade" id="storyDetailsModal" tabindex="-1" role="dialog" aria-labelledby="storyDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="storyDetailsModalLabel">Story Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                        <div class="col-md-12 text-center mb-3">
+                                <img id="modal-story-image" src="" alt="Story Image" style="max-width: 100%; height: auto; border-radius: 8px;">
+                        </div>
+                        <div class="col-md-12">
+                                <h4 id="modal-story-title"></h4>
+                                <p><strong>Category:</strong> <span id="modal-story-category"></span></p>
+                                <p><strong>Status:</strong> <span id="modal-story-status"></span></p>
+                                <p><strong>Short Story:</strong> <span id="modal-story-short"></span></p>
+                                <p><strong>Description:</strong></p>
+                                <div id="modal-story-description"></div>
+                                <hr>
+                                <p><strong>Meta Title:</strong> <span id="modal-story-meta-title"></span></p>
+                                <p><strong>Meta Description:</strong> <span id="modal-story-meta-description"></span></p>
+                                <p><strong>Meta Keywords:</strong> <span id="modal-story-meta-keywords"></span></p>
+                        </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 @section('script')
 
 <script>
@@ -256,6 +322,37 @@
     });
 
 
+</script>
+<script>
+$(document).ready(function() {
+        // Show details modal on detailsBtn click
+        $(document).on('click', '.detailsBtn', function() {
+                // Get data attributes
+                var title = $(this).data('title') || '';
+                var image = $(this).data('image') || '';
+                var description = $(this).data('description') || '';
+                var short_description = $(this).data('short_description') || '';
+                var category = $(this).data('category') || '';
+                var meta_title = $(this).data('meta_title') || '';
+                var meta_description = $(this).data('meta_description') || '';
+                var meta_keywords = $(this).data('meta_keywords') || '';
+                var status = $(this).data('status') == 1 ? 'Active' : 'Inactive';
+
+                // Set modal fields
+                $('#modal-story-title').text(title);
+                $('#modal-story-image').attr('src', image);
+                $('#modal-story-category').text(category);
+                $('#modal-story-status').text(status);
+                $('#modal-story-short').text(short_description);
+                $('#modal-story-description').text(description);
+                $('#modal-story-meta-title').text(meta_title);
+                $('#modal-story-meta-description').text(meta_description);
+                $('#modal-story-meta-keywords').text(meta_keywords);
+
+                // Show modal
+                $('#storyDetailsModal').modal('show');
+        });
+});
 </script>
 
 <script>

@@ -20,7 +20,7 @@
           </p>
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item d-none">
         <a href="{{route('admin.agent')}}" class="nav-link {{ (request()->is('admin/agent*')) ? 'active' : '' }}">
           <i class="nav-icon fas fa-th"></i>
           <p>
@@ -28,7 +28,7 @@
           </p>
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item d-none">
         <a href="{{route('admin.country')}}" class="nav-link {{ (request()->is('admin/country*')) ? 'active' : '' }}">
           <i class="nav-icon fas fa-th"></i>
           <p>
