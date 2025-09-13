@@ -2,6 +2,14 @@
 
 @section('content')
     
+
+
+@section('title', isset($metadata->name) ? $metadata->name : '')
+@section('meta_title', isset($metadata->name) ? $metadata->name : '')
+@section('meta_description', isset($metadata->description) ? $metadata->description : '')
+@section('meta_image', isset($metadata->feature_image) ? asset('images/products/' . $metadata->feature_image) : '')
+
+
 @php
 $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_us','logo')->first();
 $stories = \App\Models\Essay::select('id','slug' ,'description', 'name','feature_image','short_description')->get();

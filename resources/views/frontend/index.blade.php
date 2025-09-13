@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+
+
+@section('title', isset($metadata->name) ? $metadata->name : '')
+@section('meta_title', isset($metadata->name) ? $metadata->name : '')
+@section('meta_description', isset($metadata->description) ? $metadata->description : '')
+@section('meta_image', isset($metadata->feature_image) ? asset('images/products/' . $metadata->feature_image) : '')
+
+
+
 @section('content')
 
 

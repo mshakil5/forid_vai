@@ -46,6 +46,9 @@
                                         <option value="Poetry">Poetry</option>
                                         <option value="Publication">Int. Publication</option>
                                         <option value="Essay">Essay</option>
+                                        <option value="Home">Home</option>
+                                        <option value="About">About</option>
+                                        <option value="Contact">Contact</option>
                                     </select>
                                     </div>
                                 </div>

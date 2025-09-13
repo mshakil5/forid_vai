@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Contact;
 use App\Models\Essay;
+use App\Models\Master;
 use App\Models\Poetry;
 use App\Models\Publication;
 use App\Models\Research;
@@ -19,13 +20,15 @@ class FrontendController extends Controller
         $books = Book::latest()->limit(16)->get();
 
         $poetries = Poetry::select('id','slug', 'description', 'name','feature_image','short_description')->orderby('id', 'DESC')->get();
-
-        return view('frontend.index', compact('books','poetries'));
+        
+        $metadata = Master::where('category', 'Home')->first();
+        return view('frontend.index', compact('books','poetries','metadata'));
     }
 
     public function contact()
     {
-        return view('frontend.contact');
+        $metadata = Master::where('category', 'Contact')->first();
+        return view('frontend.contact', compact('metadata'));
     }
 
     public function about()
@@ -71,17 +74,20 @@ class FrontendController extends Controller
 
     public function stories()
     {
-        return view('frontend.stories');
+        $metadata = Master::where('category', 'Story')->first();
+        return view('frontend.stories', compact('metadata'));
     }
 
     public function poetries()
     {
-        return view('frontend.poetries');
+        $metadata = Master::where('category', 'Poetry')->first();
+        return view('frontend.poetries', compact('metadata'));
     }
 
     public function essay()
     {
-        return view('frontend.essay');
+        $metadata = Master::where('category', 'Essay')->first();
+        return view('frontend.essay', compact('metadata'));
     }
 
     public function showessay($slug)
@@ -98,13 +104,15 @@ class FrontendController extends Controller
 
     public function research()
     {
-        return view('frontend.research');
+        $metadata = Master::where('category', 'Research')->first();
+        return view('frontend.research', compact('metadata'));
     }
 
     public function book()
     {
         $data = Book::latest()->get();
-        return view('frontend.book', compact('data'));
+        $metadata = Master::where('category', 'Book')->first();
+        return view('frontend.book', compact('data','metadata'));
     }
 
     public function bookDetails($slug)
@@ -129,7 +137,8 @@ class FrontendController extends Controller
 
     public function publications()
     {
-        return view('frontend.publications');
+        $metadata = Master::where('category', 'Publication')->first();
+        return view('frontend.publications', compact('metadata'));
     }
 
     public function showPublication($slug)
