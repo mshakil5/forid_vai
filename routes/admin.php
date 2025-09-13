@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\EssayController;
 use App\Http\Controllers\Admin\ResearchController;
 use App\Http\Controllers\Admin\InternationalPublicationController;
+use App\Http\Controllers\Admin\MetaController;
 
 /*------------------------------------------
 --------------------------------------------
@@ -123,7 +124,16 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
         Route::post('/toggle-status', [InternationalPublicationController::class, 'toggleStatus'])->name('internationalPublicationToggleStatus');
     });
 
-    
+
+    Route::group(['prefix' => 'meta-data'], function () {
+        Route::get('/', [MetaController::class, 'index'])->name('admin.metaData');
+        Route::post('/', [MetaController::class, 'store']);
+        Route::get('/{id}/edit', [MetaController::class, 'edit']);
+        Route::post('/update', [MetaController::class, 'update']);
+        Route::get('/{id}', [MetaController::class, 'delete']);
+    });
+
+
 
     
 });

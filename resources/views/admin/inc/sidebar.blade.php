@@ -132,6 +132,16 @@
           </p>
         </a>
       </li>
+
+      
+      <li class="nav-item">
+        <a href="{{route('admin.metaData')}}" class="nav-link {{ (request()->is('admin/metaData*')) ? 'active' : '' }}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>
+            Meta data
+          </p>
+        </a>
+      </li>
       
 
 
