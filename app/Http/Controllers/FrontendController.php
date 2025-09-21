@@ -20,8 +20,8 @@ class FrontendController extends Controller
         $books = Book::latest()->limit(16)->get();
 
         $poetries = Poetry::select('id','slug', 'description', 'name','feature_image','short_description')->orderby('id', 'DESC')->get();
-        
         $metadata = Master::where('category', 'Home')->first();
+        
         return view('frontend.index', compact('books','poetries','metadata'));
     }
 

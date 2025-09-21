@@ -81,38 +81,7 @@
   <!-- Online Articles Section -->
   <h2 class="section-title">Books</h2>
 
-  <!-- Mobile Categories Toggle (visible only on xs-sm) -->
-  {{-- <div id="mobile-categories" class="d-md-none">
-    <button class="btn btn-outline-secondary mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#categoriesCollapse" aria-expanded="false" aria-controls="categoriesCollapse">
-      Categories
-    </button>
-    <div class="collapse" id="categoriesCollapse">
-      <ul class="list-group">
-        <li class="list-group-item active" data-li-category="all">All</li>
-        <li class="list-group-item" data-li-category="fiction">Fiction, Poetry & Reviews</li>
-        <li class="list-group-item" data-li-category="hidden-japan">Hidden Japan</li>
-        <li class="list-group-item" data-li-category="in-translation">In Translation</li>
-        <li class="list-group-item" data-li-category="insights">Insights From Asia</li>
-        <li class="list-group-item" data-li-category="our-japan">Our Japan</li>
-        <li class="list-group-item" data-li-category="our-kyoto">Our Kyoto</li>
-        <li class="list-group-item" data-li-category="tokonoma">Tokonoma</li>
-      </ul>
-    </div>
-  </div> --}}
 
-  <!-- Desktop Tabs (hidden on small) -->
-  {{-- <ul class="nav nav-tabs justify-content-center mb-4 d-none d-md-flex flex-wrap">
-    <li class="nav-item"><a class="nav-link category-filter active" href="#" data-category="all">All</a></li>
-    <li class="nav-item"><a class="nav-link category-filter" href="#" data-category="fiction">Fiction, Poetry & Reviews</a></li>
-    <li class="nav-item"><a class="nav-link category-filter" href="#" data-category="hidden-japan">Hidden Japan</a></li>
-    <li class="nav-item"><a class="nav-link category-filter" href="#" data-category="in-translation">In Translation</a></li>
-    <li class="nav-item"><a class="nav-link category-filter" href="#" data-category="insights">Insights From Asia</a></li>
-    <li class="nav-item"><a class="nav-link category-filter" href="#" data-category="our-japan">Our Japan</a></li>
-    <li class="nav-item"><a class="nav-link category-filter" href="#" data-category="our-kyoto">Our Kyoto</a></li>
-    <li class="nav-item"><a class="nav-link category-filter" href="#" data-category="tokonoma">Tokonoma</a></li>
-  </ul> --}}
-
-  <!-- Articles Grid -->
   <div class="row g-3">
     
 
@@ -129,23 +98,7 @@
         </div>
     @endforeach
 
-
-
-
-
-    <!-- add remaining articles in same pattern (loop server-side) -->
   </div>
-
-  <!-- Pagination (static markup; wire up server-side or client-side as needed) -->
-  {{-- <nav aria-label="Page navigation" class="mt-4">
-    <ul class="pagination justify-content-center">
-      <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item active"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">Next</a></li>
-    </ul>
-  </nav> --}}
-
 
   
 </div>
@@ -218,8 +171,8 @@
   <div id="bookSlider"
        class="carousel slide d-none d-md-block"
        data-bs-ride="carousel"
-       data-bs-interval="3500"   {{-- autoplay every 3.5s --}}
-       data-bs-pause="hover">    {{-- pause when mouse enters --}}
+       data-bs-interval="3500"  
+       data-bs-pause="hover">    
     <div class="carousel-inner">
 
       @foreach ($poetries->chunk(4) as $chunkIndex => $chunk)

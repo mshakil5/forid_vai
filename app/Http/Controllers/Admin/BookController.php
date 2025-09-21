@@ -146,7 +146,6 @@ class BookController extends Controller
             'short_description' => 'nullable|string',
             'description' => 'required|string',
             'price' => 'required|numeric',
-            'product_code' => 'required|unique:books,product_code,' . $request->codeid,
             'is_featured' => 'nullable',
             'is_recent' => 'nullable',
             'is_new_arrival' => 'nullable',
@@ -222,11 +221,13 @@ class BookController extends Controller
             foreach ($categories as $categoryData) {
                 if ($categoryData['categoryProductId']) {
                     $categoryProduct = CategoryProduct::where('id', $categoryData['categoryProductId'])->first();
-                    $categoryProduct->category_id = $categoryData['category_id'] ?? null;
-                    if ($categoryData['sub_category_id']) {
-                        $categoryProduct->sub_category_id = $categoryData['sub_category_id'] ?? null;
+                    if ($categoryProduct) {
+                        $categoryProduct->category_id = $categoryData['category_id'] ?? null;
+                        if ($categoryData['sub_category_id']) {
+                            $categoryProduct->sub_category_id = $categoryData['sub_category_id'] ?? null;
+                        }
+                        $categoryProduct->save();
                     }
-                    $categoryProduct->save();
                 } else {
                     if (!empty($categoryData['category_id'])) {
                         $categoryProduct = new CategoryProduct();

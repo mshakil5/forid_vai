@@ -4,9 +4,9 @@
     
 
 
-@section('title', isset($metadata->name) ? $metadata->name : '')
-@section('meta_title', isset($metadata->name) ? $metadata->name : '')
-@section('meta_description', isset($metadata->description) ? $metadata->description : '')
+@section('title', 'Books')
+@section('meta_title', isset($metadata->name) ? $metadata->name : 'Books')
+@section('meta_description', isset($metadata->description) ? $metadata->description : 'Books')
 @section('meta_image', isset($metadata->feature_image) ? asset('images/products/' . $metadata->feature_image) : '')
 
 
@@ -16,7 +16,7 @@ $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_
 
 <style>
     .home-banner-slider img{
-        width: 253px !important;
+        width: 333px !important;
     }
 
 
@@ -162,7 +162,7 @@ $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_
             @foreach ($data as $key => $item)
                 <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
                     <div class="d-flex justify-content-end m-3">
-                        <img src="{{ asset('images/products/' . $item->feature_image) }}" class="d-block m-5" style="height:300px" alt="{{ $item->name }}">
+                        <img src="{{ asset('images/products/' . $item->feature_image) }}" class="d-block m-5" style="height:400px" alt="{{ $item->name }}">
                     </div>
                     <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
                         <h5>{{ $item->name }}</h5>

@@ -13,11 +13,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         @hasSection('title')
-            @yield('title')
+          {{$profile->company_name}} |  @yield('title')
         @else
             {{$profile->company_name}}
         @endif
     </title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('fav.png')}}">
     <meta name="description" content="@yield('meta_description', $profile->about_us ?? 'Farid Hasan')">
     <meta name="keywords" content="{{ $profile->company_name }}, {{ $profile->position }}">
     <meta name="author" content="{{ $profile->company_name }}">
