@@ -1,21 +1,74 @@
 @extends('layouts.app')
 
-
-
 @section('title', isset($metadata->name) ? $metadata->name : '')
 @section('meta_title', isset($metadata->name) ? $metadata->name : '')
 @section('meta_description', isset($metadata->description) ? $metadata->description : '')
 @section('meta_image', isset($metadata->feature_image) ? asset('images/products/' . $metadata->feature_image) : '')
 
-
-
 @section('content')
-
 
 @php
     $profile = \App\Models\CompanyDetail::select('company_name', 'position', 'about_us','about_us_eng','logo')->first();
-    $banner = asset('banner.jpg'); /* replace with dynamic if you store banner path in DB */
+    $banner = asset('banner.jpg');
 @endphp
+
+
+<style>
+  /* ================== Book Slider ================== */
+    #bookSlider .carousel-inner .carousel-item { padding: 1.25rem 0; }
+    #bookSlider .carousel-book {
+      text-align: center;
+      padding: 0.65rem;
+      width: 280px;
+    }
+    .carousel-book a{
+      text-decoration: none;
+      color: inherit;
+    }
+    #bookSlider .carousel-book img {
+      width: 240px;
+      height: 310px;
+      object-fit: cover;
+      border-radius: 6px;
+      display: block;
+      margin: 0 auto 0.6rem;
+    }
+    #bookSlider .book-title {
+      font-weight: 700;
+      font-size: .95rem;
+      margin: 0;
+    }
+    #bookSlider .book-price {
+      color: #666;
+      font-size: .9rem;
+      margin: 0.15rem 0 0;
+    }
+
+    /* Mobile horizontal scroll */
+    .books-scroll {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding: 12px 8px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .books-scroll .carousel-book {
+      flex: 0 0 auto;
+      width: 140px;
+    }
+
+    /* Hide/show responsive */
+    @media (max-width: 767.98px) {
+      #bookSlider { display: none !important; }
+      .books-scroll { display: flex; }
+    }
+    @media (min-width: 768px) {
+      .books-scroll { display: none; }
+    }
+
+</style>
+
+
 
 <div id="slider" class="carousel slide" data-bs-ride="carousel" aria-label="Hero carousel">
   <div class="carousel-inner">
@@ -66,17 +119,6 @@
   </button>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
 <div class="container section-container" id="online-articles-section">
   <!-- Online Articles Section -->
   <h2 class="section-title">Books</h2>
@@ -102,66 +144,6 @@
 
   
 </div>
-
-
-
-<style>
-  /* ================== Book Slider ================== */
-#bookSlider .carousel-inner .carousel-item { padding: 1.25rem 0; }
-#bookSlider .carousel-book {
-  text-align: center;
-  padding: 0.65rem;
-  width: 280px;
-}
-.carousel-book a{
-  text-decoration: none;
-  color: inherit;
-}
-#bookSlider .carousel-book img {
-  width: 240px;
-  height: 310px;
-  object-fit: cover;
-  border-radius: 6px;
-  display: block;
-  margin: 0 auto 0.6rem;
-}
-#bookSlider .book-title {
-  font-weight: 700;
-  font-size: .95rem;
-  margin: 0;
-}
-#bookSlider .book-price {
-  color: #666;
-  font-size: .9rem;
-  margin: 0.15rem 0 0;
-}
-
-/* Mobile horizontal scroll */
-.books-scroll {
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  padding: 12px 8px;
-  -webkit-overflow-scrolling: touch;
-}
-.books-scroll .carousel-book {
-  flex: 0 0 auto;
-  width: 140px;
-}
-
-/* Hide/show responsive */
-@media (max-width: 767.98px) {
-  #bookSlider { display: none !important; }
-  .books-scroll { display: flex; }
-}
-@media (min-width: 768px) {
-  .books-scroll { display: none; }
-}
-
-</style>
-
-
-
 
 <!-- ================== Books Carousel ================== -->
 <div class="container section-container" id="books-carousel-section">
@@ -218,13 +200,6 @@
     @endforeach
   </div>
 </div>
-
-
-
-
-
-
-
 
 
 @endsection

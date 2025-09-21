@@ -71,7 +71,8 @@
             <div>
               <h5 class="mb-1">{{$profile->company_name}}</h5>
               <p class="small-muted mb-1">
-                {{$profile->footer_content}}
+                {{-- {{$profile->footer_content}} --}}
+                Muhammad Farid Hasan (b. 1992, Chandpur, Bangladesh) is a writer, researcher, and journalist with over 12 years of experience in publication and literary editing. He is the author of 31 books published in both India and Bangladesh. His certificate name is Md. Mostafizur Rahaman.
               </p>
               <a href="{{route('homepage')}}" class="btn btn-sm btn-outline-light">About the author</a>
             </div>

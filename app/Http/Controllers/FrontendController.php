@@ -11,16 +11,27 @@ use App\Models\Publication;
 use App\Models\Research;
 use App\Models\Story;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 
 class FrontendController extends Controller
 {
     public function index()
     {
-        $books = Book::latest()->limit(16)->get();
+        $books = Cache::remember('home_books', 1800, function () {
+            return Book::select('id','slug','name','feature_image','price')
+                    ->latest()->limit(16)->get();
+        });
 
-        $poetries = Poetry::select('id','slug', 'description', 'name','feature_image','short_description')->orderby('id', 'DESC')->get();
-        $metadata = Master::where('category', 'Home')->first();
+        $poetries = Cache::remember('home_poetries', 1800, function () {
+            return Poetry::select('id','slug','description','name','feature_image','short_description')
+                        ->orderBy('id', 'DESC')->get();
+        });
+
+        $metadata = Cache::remember('home_metadata', 3600, function () {
+            return Master::where('category', 'Home')->first();
+        });
+
         
         return view('frontend.index', compact('books','poetries','metadata'));
     }
