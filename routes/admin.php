@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\EssayController;
 use App\Http\Controllers\Admin\ResearchController;
 use App\Http\Controllers\Admin\InternationalPublicationController;
 use App\Http\Controllers\Admin\MetaController;
+use App\Http\Controllers\Admin\EventController;
 
 /*------------------------------------------
 --------------------------------------------
@@ -132,6 +133,15 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
         Route::post('/update', [MetaController::class, 'update']);
         Route::get('/{id}', [MetaController::class, 'delete']);
     });
+
+
+    // Event routes
+    Route::get('/event', [EventController::class, 'index'])->name('admin.event');
+    Route::post('/event', [EventController::class, 'store']);
+    Route::get('/event/{id}/edit', [EventController::class, 'edit']);
+    Route::post('/event-update', [EventController::class, 'update']);
+    Route::get('/event/{id}', [EventController::class, 'delete']);
+    Route::post('/event-toggle-status', [EventController::class, 'toggleStatus'])->name('eventtoggleStatus');
 
 
 

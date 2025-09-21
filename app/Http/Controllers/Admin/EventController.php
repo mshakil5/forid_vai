@@ -5,33 +5,27 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
-use App\Models\Research;
+use App\Models\Event;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 
-class ResearchController extends Controller
+class EventController extends Controller
 {
-    public function getResearch()
+    public function index()
     {
         
         $categories = Category::select('id', 'name')->orderby('id', 'DESC')->get();
-        $data = Research::select('id', 'name', 'description', 'category_id', 'is_featured', 'is_recent', 'is_popular', 'is_trending', 'feature_image', 'slug',  'status')->orderby('id','DESC')->get();
+        $data = Event::select('id', 'name', 'description', 'category_id', 'is_featured', 'is_recent', 'is_popular', 'is_trending', 'feature_image', 'slug',  'status')->orderby('id','DESC')->get();
 
-        return view('admin.research.index', compact('data','categories'));
+        return view('admin.event.index', compact('data','categories'));
     }
 
-    public function researchStore(Request $request)
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:research,name',
+            'name' => 'required|string|max:255|unique:events,name',
             'short_description' => 'nullable|string',
             'description' => 'required|string',
-            'is_featured' => 'nullable',
-            'is_recent' => 'nullable',
-            'is_new_arrival' => 'nullable',
-            'is_top_rated' => 'nullable',
-            'is_popular' => 'nullable',
-            'is_trending' => 'nullable',
             'feature_image' => 'nullable|image|max:10240',
         ]);
 
@@ -43,26 +37,20 @@ class ResearchController extends Controller
 
         $pslug = Str::slug($request->input('name'));
 
-        $chkSlug = Research::where('slug', $pslug)->exists();
+        $chkSlug = Event::where('slug', $pslug)->exists();
         if ($chkSlug) {
             $pslug = $pslug . '-' . mt_rand(10000000, 99999999);
         }
 
-        $product = new Research;
+        $product = new Event;
         $product->name = $request->input('name');
         $product->slug = $pslug;
         $product->short_description = $request->input('short_description', null);
         $product->description = $request->input('description');
         $product->category_id = $request->category_id;
-        $product->meta_title = $request->meta_title;
+        $product->meta_title = $request->meta_title ?? $request->input('name');
         $product->meta_description = $request->meta_description;
         $product->meta_keywords = $request->meta_keywords;
-        $product->is_featured = $request->input('is_featured', false);
-        $product->is_recent = $request->input('is_recent', false);
-        $product->is_new_arrival = $request->input('is_new_arrival', false);
-        $product->is_top_rated = $request->input('is_top_rated', false);
-        $product->is_popular = $request->input('is_popular', false);
-        $product->is_trending = $request->input('is_trending', false);
         $product->created_by = auth()->user()->id;
 
         if ($request->hasFile('feature_image')) {
@@ -80,24 +68,18 @@ class ResearchController extends Controller
         return response()->json(['status'=> 300,'message'=>$message]);
     }
 
-    public function researchEdit($id)
+    public function edit($id)
     {
-        $info = Research::where('id', $id)->first();
+        $info = Event::where('id', $id)->first();
         return response()->json($info);
     }
 
-    public function researchUpdate(Request $request)
+    public function update(Request $request)
     {
        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255|unique:poetries,name,' . $request->codeid,
             'short_description' => 'nullable|string',
             'description' => 'required|string',
-            'is_featured' => 'nullable',
-            'is_recent' => 'nullable',
-            'is_new_arrival' => 'nullable',
-            'is_top_rated' => 'nullable',
-            'is_popular' => 'nullable',
-            'is_trending' => 'nullable',
             'feature_image' => 'nullable|image|max:10240',
         ]);
 
@@ -106,12 +88,9 @@ class ResearchController extends Controller
             return response()->json(['status' => 400, 'message' => $errorMessage]);
         }
 
-
-
         $pslug = Str::slug($request->input('name'));
 
-        
-        $product = Research::find($request->codeid);
+        $product = Event::find($request->codeid);
 
         if ($request->hasFile('feature_image')) {
             $uploadedFile = $request->file('feature_image');
@@ -128,12 +107,6 @@ class ResearchController extends Controller
         $product->meta_title = $request->meta_title;
         $product->meta_description = $request->meta_description;
         $product->meta_keywords = $request->meta_keywords;
-        $product->is_featured = $request->input('is_featured', false);
-        $product->is_recent = $request->input('is_recent', false);
-        $product->is_new_arrival = $request->input('is_new_arrival', false);
-        $product->is_top_rated = $request->input('is_top_rated', false);
-        $product->is_popular = $request->input('is_popular', false);
-        $product->is_trending = $request->input('is_trending', false);
         $product->updated_by = auth()->user()->id;
         $product->save();
 
@@ -142,14 +115,13 @@ class ResearchController extends Controller
         return response()->json(['status' => 300, 'message' => $message, 'short_description' => $request->short_description]);
     }
 
-    public function researchDelete($id)
+    public function delete($id)
     {
-        $product = Research::find($id);
+        $product = Event::find($id);
 
         if (!$product) {
             return response()->json(['success' => false, 'message' => 'Data not found.']);
         }
-
 
         if ($product->feature_image && file_exists(public_path('images/products/' . $product->feature_image))) {
             unlink(public_path('images/products/' . $product->feature_image));
@@ -167,7 +139,7 @@ class ResearchController extends Controller
             'is_On' => 'required|boolean'
         ]);
 
-        $product = Research::find($request->id);
+        $product = Event::find($request->id);
         $product->status = $request->is_On;
         $product->save();
 

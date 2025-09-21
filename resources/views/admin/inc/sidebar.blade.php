@@ -142,6 +142,16 @@
           </p>
         </a>
       </li>
+
+      
+      <li class="nav-item">
+        <a href="{{route('admin.event')}}" class="nav-link {{ (request()->is('admin/event*')) ? 'active' : '' }}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>
+            Event
+          </p>
+        </a>
+      </li>
       
 
 

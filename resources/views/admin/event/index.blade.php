@@ -51,9 +51,9 @@
                                 </div>
                             </div>
 
-                            <div class="form-row category-row">
+                            <div class="form-row category-row d-none">
                                 <div class="form-group col-md-4">
-                                    <label for="category">category<span style="color: red;">*</span></label>
+                                    <label for="category">category</label>
                                     <select class="form-control category" id="category_id" name="category_id">
                                         <option value="">Select Category</option>
                                         @foreach($categories as $category)
@@ -66,30 +66,6 @@
 
 
                             <div class="form-row">
-                                <div class="form-group col-md-1 d-none">
-                                    <label for="is_featured">Featured</label>
-                                    <input type="checkbox" class="form-control" id="is_featured" name="is_featured" value="1">
-                                </div>
-                                <div class="form-group col-md-1 d-none">
-                                    <label for="is_recent">Recent</label>
-                                    <input type="checkbox" class="form-control" id="is_recent" name="is_recent" value="1">
-                                </div>
-                                <div class="form-group col-md-1 d-none">
-                                    <label for="is_new_arrival">New Arriv.</label>
-                                    <input type="checkbox" class="form-control" id="is_new_arrival" name="is_new_arrival" value="1">
-                                </div>
-                                <div class="form-group col-md-1 d-none">
-                                    <label for="is_top_rated">Top Rated</label>
-                                    <input type="checkbox" class="form-control" id="is_top_rated" name="is_top_rated" value="1">
-                                </div>
-                                <div class="form-group col-md-1 d-none">
-                                    <label for="is_popular">Popular</label>
-                                    <input type="checkbox" class="form-control" id="is_popular" name="is_popular" value="1">
-                                </div>
-                                <div class="form-group col-md-1 d-none">
-                                    <label for="is_trending">Trending</label>
-                                    <input type="checkbox" class="form-control" id="is_trending" name="is_trending" value="1">
-                                </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Meta Title</label>
@@ -373,8 +349,8 @@ $(document).ready(function() {
 
       $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
 
-      var url = "{{URL::to('/admin/research')}}";
-      var upurl = "{{URL::to('/admin/research-update')}}";
+      var url = "{{URL::to('/admin/event')}}";
+      var upurl = "{{URL::to('/admin/event-update')}}";
 
       $("#addBtn").click(function(){
 
@@ -388,24 +364,6 @@ $(document).ready(function() {
                 form_data.append("meta_description", $("#meta_description").val());
                 form_data.append("meta_keywords", $("#meta_keywords").val());
 
-
-                var is_featured = $("#is_featured").is(":checked") ? 1 : 0;
-                form_data.append("is_featured", is_featured);
-
-                var is_recent = $("#is_recent").is(":checked") ? 1 : 0;
-                form_data.append("is_recent", is_recent);
-
-                var is_new_arrival = $("#is_new_arrival").is(":checked") ? 1 : 0;
-                form_data.append("is_new_arrival", is_new_arrival);
-
-                var is_top_rated = $("#is_top_rated").is(":checked") ? 1 : 0;
-                form_data.append("is_top_rated", is_top_rated);
-
-                var is_popular = $("#is_popular").is(":checked") ? 1 : 0;
-                form_data.append("is_popular", is_popular);
-
-                var is_trending = $("#is_trending").is(":checked") ? 1 : 0;
-                form_data.append("is_trending", is_trending);
 
 
                 var featureImgInput = document.querySelector('#feature-img');
@@ -458,23 +416,6 @@ $(document).ready(function() {
                 form_data.append("meta_description", $("#meta_description").val());
                 form_data.append("meta_keywords", $("#meta_keywords").val());
                 
-                var is_featured = $("#is_featured").is(":checked") ? 1 : 0;
-                form_data.append("is_featured", is_featured);
-
-                var is_recent = $("#is_recent").is(":checked") ? 1 : 0;
-                form_data.append("is_recent", is_recent);
-
-                var is_new_arrival = $("#is_new_arrival").is(":checked") ? 1 : 0;
-                form_data.append("is_new_arrival", is_new_arrival);
-
-                var is_top_rated = $("#is_top_rated").is(":checked") ? 1 : 0;
-                form_data.append("is_top_rated", is_top_rated);
-
-                var is_popular = $("#is_popular").is(":checked") ? 1 : 0;
-                form_data.append("is_popular", is_popular);
-
-                var is_trending = $("#is_trending").is(":checked") ? 1 : 0;
-                form_data.append("is_trending", is_trending);
 
                 var featureImgInput = document.querySelector('#feature-img');
                 if(featureImgInput.files && featureImgInput.files[0]) {
