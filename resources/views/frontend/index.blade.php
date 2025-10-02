@@ -13,6 +13,72 @@
 @endphp
 
 
+
+  <style>
+    /* Section wrapper */
+    .carousel-section{ padding: 48px 0; }
+
+    /* Card style that holds each slide */
+    .carousel-card{
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(44,52,71,0.08);
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(250,251,255,0.9));
+    }
+
+    /* Left image column - uses background-image for desktop */
+    .slide-image{
+      min-height: 420px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .slide-image::after{
+      /* subtle gradient overlay to improve text contrast */
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.06));
+      pointer-events: none;
+    }
+
+    /* Mobile image (img tag) visible only on small screens */
+    .mobile-slide-img{ display: none; }
+
+    /* Right description column */
+    .desc-content{
+      padding: 36px 40px;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+      opacity: 0; transform: translateY(18px);
+    }
+    .carousel-item.active .desc-content{ opacity: 1; transform: translateY(0); }
+
+    .slide-title{ font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; }
+    .slide-sub{ color: var(--muted); margin-bottom: 18px; }
+
+    .feature-list{ gap: 14px; }
+    .feature-item{ display:flex; gap:12px; align-items:flex-start; }
+    .feature-item .bi{ font-size: 1.2rem; margin-top:4px; }
+
+    .btn-cta{ border-radius: 10px; padding: 10px 18px; }
+
+
+    /* Indicators smaller and placed left */
+    .carousel-indicators{ bottom: 18px; }
+    .carousel-indicators [data-bs-target]{ width: 10px; height: 10px; border-radius: 50%; }
+
+    /* Responsive tweaks */
+    @media (max-width: 767.98px){
+      .slide-image{ min-height: 220px; }
+      .desc-content{ padding: 20px; min-height: auto; }
+      .mobile-slide-img{ display: block; width: 100%; height: auto; object-fit: cover; }
+    }
+  </style>
+
 <style>
   /* ================== Book Slider ================== */
     #bookSlider .carousel-inner .carousel-item { padding: 1.25rem 0; }
@@ -202,6 +268,74 @@
 </div>
 
 
+
+
+  <section class="carousel-section">
+    <div class="container">
+      <div class="carousel-card">
+        <div id="twoColCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="6000" data-bs-keyboard="true" aria-label="Two column feature carousel">
+
+
+
+          <div class="carousel-inner">
+
+            <!-- Slide 2 -->
+            <div class="carousel-item active">
+              <div class="row g-0 align-items-stretch">
+                <div class="col-md-6 order-md-1">
+                  <div class="slide-image" role="img" aria-label="Workspace with modern tech" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1400&auto=format&fit=crop');"></div>
+                  <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop" alt="Workspace" class="mobile-slide-img d-block d-md-none">
+                </div>
+                <div class="col-md-6">
+                  <div class="desc-content">
+                    <div>
+                      <h3 class="slide-title">Build faster — collaborate smarter</h3>
+                      <p class="slide-sub">A toolkit and methodology that helps teams ship high-quality software quickly and joyfully.</p>
+
+                      <div class="mt-3">
+                        <a href="#" class="btn btn-outline-secondary btn-cta">See docs</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-item">
+              <div class="row g-0 align-items-stretch">
+                <div class="col-md-6">
+                  <div class="slide-image" role="img" aria-label="Cozy cafe scene" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1400&auto=format&fit=crop');"></div>
+                  <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop" alt="Cafe" class="mobile-slide-img d-block d-md-none">
+                </div>
+                <div class="col-md-6">
+                  <div class="desc-content">
+                    <div>
+                      <h3 class="slide-title">Elevate your everyday rituals</h3>
+                      <p class="slide-sub">Tools and tastes to help make daily routines calmer, richer, and more intentional.</p>
+
+                      <div class="mt-3">
+                        <a href="#" class="btn btn-outline-secondary btn-cta">Gift guide</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
 @endsection
 
 @section('script')
@@ -339,5 +473,38 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
+  <script>
+    // Small enhancements using jQuery: reset / animate description content on slide change
+    (function($){
+      $(function(){
+        var carouselEl = $('#twoColCarousel');
 
+        // When slide starts changing, hide the description quickly so the incoming one can animate in
+        carouselEl.on('slide.bs.carousel', function(){
+          $('.desc-content').css({ opacity: 0, transform: 'translateY(18px)' });
+        });
+
+        // After slide has changed, allow CSS to animate in the new active description
+        carouselEl.on('slid.bs.carousel', function(){
+          // small timeout so that the class is applied after bootstrap's internal changes
+          setTimeout(function(){
+            $('.carousel-item.active .desc-content').css({ opacity: 1, transform: 'translateY(0)' });
+          }, 50);
+        });
+
+        // Accessibility: make indicators keyboard-focus friendly
+        $('.carousel-indicators button').on('keydown', function(e){
+          if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); $(this).trigger('click'); }
+        });
+
+        // Pause on hover (Bootstrap supports data-bs-pause, but we implement explicitly for reliability)
+        carouselEl.hover(function(){
+          carouselEl.carousel('pause');
+        }, function(){
+          carouselEl.carousel('cycle');
+        });
+
+      });
+    })(jQuery);
+  </script>
 @endsection
