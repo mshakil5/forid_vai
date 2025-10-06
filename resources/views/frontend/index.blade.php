@@ -279,31 +279,35 @@
 
           <div class="carousel-inner">
 
-            <!-- Slide 2 -->
-            <div class="carousel-item active">
-              <div class="row g-0 align-items-stretch">
-                <div class="col-md-6 order-md-1">
-                  <div class="slide-image" role="img" aria-label="Workspace with modern tech" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1400&auto=format&fit=crop');"></div>
-                  <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop" alt="Workspace" class="mobile-slide-img d-block d-md-none">
-                </div>
-                <div class="col-md-6">
-                  <div class="desc-content">
-                    <div>
-                      <h3 class="slide-title">Build faster — collaborate smarter</h3>
-                      <p class="slide-sub">A toolkit and methodology that helps teams ship high-quality software quickly and joyfully.</p>
+            @foreach ($events as $key =>  $event)
+                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                  <div class="row g-0 align-items-stretch">
+                    <div class="col-md-6 order-md-1">
+                      <div class="slide-image" role="img" aria-label="{{ $event->name }}" style="background-image: url({{ asset('images/products/' . $event->feature_image) }});"></div>
+                      <img src="{{ asset('images/products/' . $event->feature_image) }}" alt="{{ $event->name }}" class="mobile-slide-img d-block d-md-none">
+                    </div>
+                    <div class="col-md-6">
+                      <div class="desc-content">
+                        <div>
+                          <h3 class="slide-title">{{ $event->name }}</h3>
+                          <p class="slide-sub">{!! $event->short_description !!}</p>
 
-                      <div class="mt-3">
-                        <a href="#" class="btn btn-outline-secondary btn-cta">See docs</a>
+                          <div class="mt-3">
+                            <a href="{{route('eventsDetails', $event->slug)}}" class="btn btn-outline-secondary btn-cta">See more</a>
+                          </div>
+                        </div>
                       </div>
                     </div>
+
                   </div>
                 </div>
+            @endforeach
 
-              </div>
-            </div>
+            <!-- Slide 2 -->
+            
 
             <!-- Slide 3 -->
-            <div class="carousel-item">
+            <div class="carousel-item d-none">
               <div class="row g-0 align-items-stretch">
                 <div class="col-md-6">
                   <div class="slide-image" role="img" aria-label="Cozy cafe scene" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1400&auto=format&fit=crop');"></div>

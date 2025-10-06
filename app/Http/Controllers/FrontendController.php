@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Contact;
 use App\Models\Essay;
+use App\Models\Event;
 use App\Models\Master;
 use App\Models\Poetry;
 use App\Models\Publication;
@@ -32,8 +33,15 @@ class FrontendController extends Controller
             return Master::where('category', 'Home')->first();
         });
 
+        $events = Cache::remember('events', 1800, function () {
+            return Event::select('id','slug','name','feature_image','description','short_description')
+                    ->latest()->limit(16)->get();
+        });
+
+        // dd($events);
+
         
-        return view('frontend.index', compact('books','poetries','metadata'));
+        return view('frontend.index', compact('books','poetries','metadata','events'));
     }
 
     public function contact()
