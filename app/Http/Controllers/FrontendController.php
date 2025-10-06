@@ -165,4 +165,16 @@ class FrontendController extends Controller
         $data = Publication::select('id', 'description', 'name','feature_image','short_description')->where('slug', $slug)->first();
         return view('frontend.publicationDetails', compact('data'));
     }
+
+    public function events()
+    {
+        $metadata = Master::where('category', 'Event')->first();
+        return view('frontend.events', compact('metadata'));
+    }
+
+    public function eventsDetails($slug)
+    {
+        $story = Event::select('id', 'description', 'name','feature_image','short_description')->where('slug', $slug)->first();
+        return view('frontend.essaydetails', compact('story'));
+    }
 }
